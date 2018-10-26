@@ -22,10 +22,13 @@ app.post('/login', (req, res) => {
     login.checkLogin(req, res);
 })
 
+app.post('/signup', (req, res) => {
+    signup.checkSignup(req,res)
+})
+
 const server = app.listen(port, url, error => {
     if(error) throw error;
     else {
         console.log('Running at \n'+server.address().address + '\t' +server.address().port);
-        
     }
 })
