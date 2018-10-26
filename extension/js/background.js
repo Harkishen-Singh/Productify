@@ -1,6 +1,6 @@
 // initialising the chrome storage
 let mainMemory = {
-        blockedWebsites:[],
+        blockedWebsites:[""],
         allUrls:[],
         dictionaryWords:[],
         articleListURL:[]
@@ -80,9 +80,17 @@ function updateFilters(urls) {
       if(chrome.webRequest.onBeforeRequest.hasListener(blockRequest)) {
         chrome.webRequest.onBeforeRequest.removeListener(blockRequest); 
       }
+
+      var blockedUrls = [];
+      chrome.storage.local.get('mainMemory', (details) => {
+        blockedUrls = details.mainMemory.blockedWebsites;
+        chrome.webRequest.onBeforeRequest.addListener(blockRequest, {
+            urls: blockedUrls
+          //   [
+          //       "*://*.facebook.com/*"
+          //     ]
+          
+          }, ['blocking']); 
+      });
       
-      chrome.webRequest.onBeforeRequest.addListener(blockRequest, {
-          urls: [
-              "*://*.facebook.com/*"
-            ]}, ['blocking']); 
 } updateFilters(); 
