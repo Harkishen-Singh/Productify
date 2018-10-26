@@ -1,7 +1,7 @@
 
 var menu1 = {
     id: "meaning",
-    title: "Meaning and Translation",
+    title: "Meaning",
     contexts: ["selection"]
 };
 
@@ -11,15 +11,36 @@ var menu2 = {
     contexts: ["selection"]
 };
 
+var menu3 = {
+    id: "translation",
+    title: "Translate",
+    contexts: ["selection"]
+}
+
 function fixedEncodeURI (str) {
     return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
 }
 
 chrome.contextMenus.create(menu1);
 chrome.contextMenus.create(menu2);
+chrome.contextMenus.create(menu3);
 
 chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
-    if (clickData.menuItemId == "meaning" && clickData.selectionText )
+    if(clickData.menuItemId == "meaning" && clickData.selectionText)
+    {
+        var googleUrl = "https://www.google.com/search?safe=active&q=define+" + fixedEncodeURI(clickData.selectionText);
+        var search = {
+            "url": googleUrl,
+            "type": "popup",
+            "top": 5,
+            "left": 5,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(search,function(){});
+    }
+
+    if (clickData.menuItemId == "translation" && clickData.selectionText )
     {
         var googleUrl = "https://translate.google.com/#auto/en/" + fixedEncodeURI(clickData.selectionText);
         var search = {
@@ -35,7 +56,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
 
     if(clickData.menuItemId == "speak" && clickData.selectionText)
     {
-        chrome.tts.speak(clickData.selectionText, {'lang': 'es','rate': 0.7});
+        chrome.tts.speak(clickData.selectionText, {'lang': 'en-US','rate': 0.7});
     }
 
 });
@@ -56,4 +77,3 @@ function updateFilters(urls) {
               "*://*.facebook.com/*"
             ]}, ['blocking']); 
 } updateFilters(); 
-
