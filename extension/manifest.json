@@ -2,7 +2,7 @@
     "name":"Productify",
     "version":"1.0",
     "manifest_version":2,
-    "description":"increase your productivity",
+    "description":"Productify - control and diversify your dependence on the web",
     "browser_action": {
         "default_popup":"templates/front_page.html"
     },

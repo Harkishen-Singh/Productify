@@ -4,7 +4,7 @@ console.warn('URL of the website is '+url)
 
 // chrome.webRequest.onBeforeRequest
 
-if (url === 'https://www.google.co.in/') {
+if (0) {
     console.warn('got inside the loop')
     let blockingElement = document.createElement('div');
     blockingElement.id = '__blocking_node__';

@@ -12,7 +12,7 @@ function updateFilters(urls) {
       
       chrome.webRequest.onBeforeRequest.addListener(blockRequest, {
           urls: [
-              "*://*.facebook.com/*","*://*.google.co.in/*"
+              "*://*.facebook.com/*"
             ]}, ['blocking']); 
 } updateFilters(); 
 
