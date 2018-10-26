@@ -35,7 +35,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
 
     if(clickData.menuItemId == "speak" && clickData.selectionText)
     {
-        chrome.tts.speak(clickData.selectionText, {'lang': 'es','rate': 0.7});
+        chrome.tts.speak(clickData.selectionText, {'lang': 'en-US','rate': 0.7});
     }
 
 });
