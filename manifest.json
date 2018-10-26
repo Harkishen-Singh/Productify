@@ -1,0 +1,22 @@
+{
+    "name":"Web request controller",
+    "version":"1.0",
+    "manifest_version":2,
+    "description":"extension that controls the way the we request are performed and sent, thereby adding various checks",
+    "browser_action": {
+        "default_popup":"templates/front_page.html"
+    },
+    "permissions": [
+        "storage","notifications","webRequest","webRequestBlocking"
+    ],
+    "options_page":"templates/options.html",
+    "content_scripts": [
+        {
+            "matches":["<all_urls>"],
+            "js":["js/jquery.js","js/handler.js"]
+        }
+    ],
+    "background":{
+        "scripts":["js/background.js"]
+    }
+}
