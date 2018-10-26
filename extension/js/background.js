@@ -48,7 +48,12 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         };
         chrome.windows.create(search,function(){});
 
-       
+        chrome.storage.local.get('mainMemory', function (details) {
+            var words = details.mainMemory.dictionaryWords;
+            words.push({Url: googleUrl});           
+            chrome.storage.local.set({'dictionaryWords': words}, function() {}); 
+            
+        });
     }
 
     if (clickData.menuItemId == "translation" && clickData.selectionText )
