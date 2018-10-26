@@ -3,15 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Productify-Options</title>
+    <title>Options - Productify</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../styles.css" />
-    <script src="../extension/js/options.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/options.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/bootstrap.min.css" />
+    <script src="../js/options.js"></script>
 </head>
 <body>
-    <h3>Productify</h3> <hr>
-    <input type="text" id="lang">
-    <input type="button" value="Submit" id="lang-btn">
-    <script src="../extension/js/jquery.js"></script>
+    <h3 class="title">Productify - control and diversify your dependence on the web</h3>
+    <hr>
+    <div class="container">
+        <div class="row">
+            Web View <hr>
+            <div class="col-md-6" id="all_urls">
+                all urls are shown here
+                <div class="round-box-web-view" id="all_urls_view">
+                    <!-- example of component -->
+                    
+                </div>
+            </div>
+            <div class="col-md-6" id="blocked_urls">
+                all blocked urls are shown here
+                <div class="round-box-web-view" id="blocked_urls_view">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
 </body>
 </html>
