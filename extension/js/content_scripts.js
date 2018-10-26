@@ -1,20 +1,17 @@
-console.warn('CONTENT SCRIPT IS WORKING')
-let url = document.URL;
-console.warn('URL of the website is '+url)
 
-// chrome.webRequest.onBeforeRequest
-
-if (0) {
-    console.warn('got inside the loop')
-    let blockingElement = document.createElement('div');
-    blockingElement.id = '__blocking_node__';
-
-    blockingElement.style.height = '100%';
-    blockingElement.style.width = '100%';
-    blockingElement.style.position = 'absolute';
-    blockingElement.style.right = '0px';
-    blockingElement.style.top = '0px';
-    let content = document.createElement('h1');
-    blockingElement.appendChild(content);
-    document.appendChild(blockingElement);
-}
+let currentUrl = document.URL;
+console.log('current url '+currentUrl)
+function addCurrentUrlAfterCheckMemory() {
+    chrome.storage.local.get('mainMemory', (details) => {
+        let allUrls = details.mainMemory.allUrls;
+        console.warn('allUrls below')
+        console.warn(allUrls);
+        if (! (currentUrl in allUrls)) {
+            allUrls.push(currentUrl);
+            details.mainMemory.allUrls = allUrls;
+            console.log('updated urls below')
+            console.log(allUrls)
+            chrome.storage.local.set({'mainMemory': details.mainMemory})
+        }
+    });
+} addCurrentUrlAfterCheckMemory();
