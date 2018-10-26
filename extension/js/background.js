@@ -1,12 +1,12 @@
 // initialising the chrome storage
-let mainMemory = {
+let initialiseMainMemory = {
         blockedWebsites:[""],
         allUrls:[],
         dictionaryWords:[],
         articleListURL:[]
 };
 
-chrome.runtime.onInstalled.addListener(chrome.storage.local.set({'mainMemory': mainMemory}));
+chrome.runtime.onInstalled.addListener(chrome.storage.local.set({'mainMemory': initialiseMainMemory}));
 
 var menu1 = {
     id: "meaning",
