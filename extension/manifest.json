@@ -7,7 +7,7 @@
         "default_popup":"templates/front_page.html"
     },
     "permissions": [
-        "storage","notifications","webRequest","webRequestBlocking"
+        "contextMenus","tts","storage","notifications","webRequest","webRequestBlocking"
     ],
     "options_page":"templates/options.html",
     "content_scripts": [
