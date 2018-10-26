@@ -4,6 +4,8 @@ const mongo = require('mongodb').MongoClient,
 const path = require('path');
 const port = process.env.PORT || 5000;
 const login = require('./login');
+const signup = require('./signup');
+
 url = '0.0.0.0';
 
 app.use(bodyParser.json());
@@ -22,10 +24,13 @@ app.post('/login', (req, res) => {
     login.checkLogin(req, res);
 })
 
+app.post('/signup', (req, res) => {
+    signup.checkSignup(req,res)
+})
+
 const server = app.listen(port, url, error => {
     if(error) throw error;
     else {
         console.log('Running at \n'+server.address().address + '\t' +server.address().port);
-        
     }
 })
