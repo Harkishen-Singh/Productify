@@ -4,6 +4,7 @@ const mongo = require('mongodb').MongoClient,
 const path = require('path');
 const port = process.env.PORT || 5000;
 const login = require('./login');
+const signup = require('./signup.js');
 url = '0.0.0.0';
 
 app.use(bodyParser.json());
