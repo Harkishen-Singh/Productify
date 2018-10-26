@@ -1,0 +1,11 @@
+.title {
+    text-align: center;
+}
+
+.round-box-web-view {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    height: 400px;
+    widows: 100%;
+}
