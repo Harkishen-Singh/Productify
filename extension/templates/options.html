@@ -1,87 +1,99 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Options - Productify</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../styles/options.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../styles/bootstrap.min.css" />
-    <script src="../js/options.js"></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Options - Productify</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="../styles/options.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../styles/bootstrap.min.css" />
+	<script src="../js/options.js"></script>
 </head>
+
 <body>
-    <h3 class="jumbotron text-center" style="background-color: rgb(20, 62, 116);color:floralwhite">Productify - Control and Diversify your dependence on the web</h3>
-    <hr>
-    <div class="container">
-        <div class="col-md-12">
-            <!--Meter of productivity-->
-            productivity--meter
-           <hr>
+	<h3 class="jumbotron text-center" style="background-color: rgb(20, 62, 116);color:floralwhite">Productify - Control and Diversify your dependence on the web</h3>
+	<hr>
+	<div class="container">
+		<div class="col-md-12">
+			<!--Meter of productivity-->productivity--meter
+			<hr>
+		</div>
+		<div class="row">Web View
+			<hr>
+			<div class="col-md-6" id="all_urls">
+				<div class="round-box-web-view" id="all_urls_view">
+					<!-- example of component -->
+					<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
+						<div class="col-md-10" style="font-size:15px;"> <b>www.facebook.com</b>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-danger">Block</button>
+						</div>
+					</div>
+					<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
+						<div class="col-md-10" style="font-size:15px;"> <b>www.google.com</b>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-danger">Block</button>
+						</div>
+					</div>
+					<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
+						<div class="col-md-10" style="font-size:15px;"> <b>www.dictionary.com</b>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-danger">Block</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" id="blocked_urls">
+				<div class="round-box-web-view" id="blocked_urls_view">
+					<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
+						<div class="col-md-10" style="font-size:15px;"> <b>www.w3schools.com</b>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-success">Allow</button>
+						</div>
+					</div>
+					<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
+						<div class="col-md-10" style="font-size:15px;"> <b>www.angular.io</b>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-success">Allow</button>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
+        <br>
+        <hr>
         <div class="row">
-            Web View <hr>
-            
-            <div class="col-md-6" id="all_urls">
-                <div class="round-box-web-view" id="all_urls_view">
-                    <!-- example of component -->
-                    <div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
-                        <div class="col-md-10" style="font-size:15px;" >
-                            <b>www.facebook.com</b>
-                        
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-danger">Block</button>
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
-                        <div class="col-md-10" style="font-size:15px;" >
-                            <b>www.google.com</b>
-                        
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-danger">Block</button>
-                        </div>
-                    </div>
-                    <div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
-                        <div class="col-md-10" style="font-size:15px;" >
-                            <b>www.dictionary.com</b>
-                        
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-danger">Block</button>
-                        </div>
-                    </div>
-                    
-
-                </div>
+            <h3>Article View</h3>
+            <br>
+            <div class="col-md-4" style="border:2px black solid;height:200px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                <div>Articles Title</div>
             </div>
-            <div class="col-md-6" id="blocked_urls">
-                <div class="round-box-web-view" id="blocked_urls_view">
-                        <div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
-                                <div class="col-md-10" style="font-size:15px;" >
-                                    <b>www.w3schools.com</b>
-                                
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-success">Allow</button>
-                                </div>
-                        </div>
-                        <div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">
-                            <div class="col-md-10" style="font-size:15px;" >
-                                <b>www.angular.io</b>
-                            
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success">Allow</button>
-                            </div>
-                        </div>
-                </div>
+            <div class="col-md-8" style="border:2px black solid;height:200px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                <div>Articles outline body</div>
             </div>
         </div>
-
+        <br>
+        <hr>
+        <div class="row">
+            <h3>Dictionary View</h3>
+            <br>
+            <div class="col-md-4" style="border:2px black solid;height:200px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                <div></div>
+            </div>
+            <div class="col-md-8" style="border:2px black solid;height:200px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                <div></div>
+            </div>
+        </div>
+        <br>
+        <hr>
     </div>
-    
+
 </body>
+
 </html>
