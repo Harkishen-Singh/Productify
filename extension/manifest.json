@@ -1,8 +1,8 @@
 {
-    "name":"Web request controller",
+    "name":"Productify",
     "version":"1.0",
     "manifest_version":2,
-    "description":"extension that controls the way the we request are performed and sent, thereby adding various checks",
+    "description":"increase your productivity",
     "browser_action": {
         "default_popup":"templates/front_page.html"
     },
