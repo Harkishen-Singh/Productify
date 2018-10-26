@@ -56,4 +56,3 @@ function updateFilters(urls) {
               "*://*.facebook.com/*"
             ]}, ['blocking']); 
 } updateFilters(); 
-
