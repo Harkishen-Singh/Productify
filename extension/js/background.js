@@ -47,6 +47,21 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             "height": Math.round(screen.availHeight/2)
         };
         chrome.windows.create(search,function(){});
+
+        chrome.storage.local.get({userKeyIds: []}, function (result) {
+            // the input argument is ALWAYS an object containing the queried keys
+            // so we select the key we need
+            var userKeyIds = result.userKeyIds;
+            userKeyIds.push({keyPairId: keyPairId, HasBeenUploadedYet: false});
+            // set the new array value to the same key
+            chrome.storage.local.set({userKeyIds: userKeyIds}, function () {
+                // you can use strings instead of objects
+                // if you don't  want to define default values
+                chrome.storage.local.get('userKeyIds', function (result) {
+                    console.log(result.userKeyIds)
+                });
+            });
+        });
     }
 
     if (clickData.menuItemId == "translation" && clickData.selectionText )
