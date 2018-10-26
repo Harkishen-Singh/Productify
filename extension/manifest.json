@@ -7,16 +7,17 @@
         "default_popup":"templates/front_page.html"
     },
     "permissions": [
-        "storage","notifications","webRequest","webRequestBlocking"
+        "storage","notifications","webRequest","webRequestBlocking","<all_urls>"
     ],
     "options_page":"templates/options.html",
     "content_scripts": [
         {
             "matches":["<all_urls>"],
-            "js":["js/jquery.js","js/handler.js"]
+            "js":["js/jquery.js","js/content_scripts.js"]
         }
     ],
     "background":{
-        "scripts":["js/background.js"]
+        "scripts":["js/background.js"],
+        "persistent":true
     }
 }
