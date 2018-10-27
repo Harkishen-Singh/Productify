@@ -7,7 +7,7 @@ let initialiseMainMemory = {
         articleListURL:[]
 };
 function setup() {
-    <chrome className="storage sync"></chrome>.set({'mainMemory': initialiseMainMemory})
+    chrome.storage sync.set({'mainMemory': initialiseMainMemory})
 }
 
 chrome.runtime.onInstalled.addListener(setup);
