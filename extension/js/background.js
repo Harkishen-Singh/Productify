@@ -64,8 +64,10 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
                 url: googleUrl
             };
             var x = word_num + 1;
-            words.push(newWord);           
-            chrome.storage.local.set({'dictionaryWords': words,'wordId': x}, function() {});          
+            words.push(newWord);
+            details.mainMemory.dictionaryWords = words;
+            details.mainMemory.wordId = x;          
+            chrome.storage.local.set({'mainMemory': details.mainMemory})          
         });
     }
 
