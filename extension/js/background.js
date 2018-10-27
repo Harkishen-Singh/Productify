@@ -67,7 +67,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             words.push(newWord);
             details.mainMemory.dictionaryWords = words;
             details.mainMemory.wordId = x;          
-            chrome.storage sync.set({'mainMemory': details.mainMemory})          
+            chrome.storage.sync.set({'mainMemory': details.mainMemory})          
         });
     }
 
