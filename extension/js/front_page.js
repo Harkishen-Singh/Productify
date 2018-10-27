@@ -1,7 +1,11 @@
-let blocks = document.getElementById('blockWebs');
-
-chrome.storage.local.get('mainMemory', (details) => {
-    let blocked = details.mainMemory.blockedWebsites;
-    blocks.innerHTML = blocked.length -1;
-    console.log('front_page.js is '+blocked.length-1)
-});
+function name(){
+    chrome.storage.sync.get('mainMemory', (details) => {
+        let Urls = details.mainMemory.blockedWebsites;
+        let len = Urls.length;
+        let words = details.mainMemory.wordId;
+        document.getElementById('blocked-num').innerHTML = len - 1;
+        document.getElementById('dictionary-num').innerHTML = words;
+    });
+}
+    
+setInterval(name,500);
