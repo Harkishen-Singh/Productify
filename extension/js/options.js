@@ -35,8 +35,8 @@ chrome.storage.local.get('mainMemory', (details) => {
     // if (allBlockedNodes.length === 0)
     //     document.getElementById('blocked_urls_view').appendChild(document.createElement('h3').innerHTML='No URLs viewed yet.');
     document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
-    for(let i =0; i< allBlockedNodes.length; i++) {
-        document.getElementById(allBlockedNodes[i]).addEventListener('click',removeBlocking, false)
+    for(let i =0; i< blockedWebsites.length; i++) {
+        document.getElementById(blockedWebsites[i]).addEventListener('click',removeBlocking, false)
     }
 
 
@@ -62,18 +62,21 @@ function addBlocking(element) {
 }
 
 function removeBlocking(element) {
-    console.log('thisss' + this.id)
+    console.log('removeBLocking invoked' + this.id)
     console.log(this.id)
     chrome.storage.local.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
-            details.mainMemory.blockedWebsites.push(this.id);
             let blockedWebsites = details.mainMemory.blockedWebsites;
             for(let j=0;j<blockedWebsites.length; j++) {
-                if(blockedWebsites[j]===this.id) {
-                    console.warn('same URL found. deleting from allowed list')
-                    blockedWebsites.splice(j,1)
+                if(blockedWebsites[j]===this.id ) {
+                    console.warn('***deleting from blocked list')
+                    console.warn('j is '+j)
+                    details.mainMemory.blockedWebsites.splice(j,1)
+                    console.warn(details.mainMemory.blockedWebsites)
                 }
             }
+            details.mainMemory.allUrls.push(this.id);
+            // details.mainMemory.blockedWebsites = blockedWebsites;
             chrome.storage.local.set({'mainMemory': details.mainMemory})
             alert('Added '+this.id+' to List of Blocked websites')
         }
