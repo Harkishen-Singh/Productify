@@ -15,7 +15,11 @@ chrome.storage.local.get('mainMemory', (details) => {
     }
     if (allURlsNode.length === 0) {
         console.log('no urls viewd')
-        document.getElementById('all_urls_view').innerHTML='No URLs viewed yet.';
+        let x = document.getElementById('all_urls');
+        x.innerHTML = 'No URLs viewed yet.';
+        x.style.border = '2px solid black';
+        x.style.borderRadius = '5px';
+        x.style.height = '400px';
     }
     
     document.getElementById('all_urls_view').innerHTML=allURlsNode;
@@ -27,6 +31,8 @@ chrome.storage.local.get('mainMemory', (details) => {
 
     console.warn(blockedWebsites)
     for(let i =0; i< blockedWebsites.length; i++) {
+        if (blockedWebsites[i] === 'https://www.defaultsomethingss.com/*') 
+            continue
         allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
             '<div class="col-md-10" style="font-size:15px;"> <b> '+ blockedWebsites[i] + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+blockedWebsites[i] +'" class="btn btn-success">Allow</button></div></div>';
@@ -35,8 +41,15 @@ chrome.storage.local.get('mainMemory', (details) => {
         // button.addEventListener('click', )
         
     }
-    if (allBlockedNodes.length === 0)
-        document.getElementById('blocked_urls_view').innerHTML='<h3>No URLs Blocked yet.</h3>';
+    if (blockedWebsites.length === 1 && blockedWebsites[0] === 'https://www.defaultsomethingss.com/*' ) {
+        console.log('black working ***')
+        let x = document.getElementById('blocked_urls');
+        x.innerHTML = 'No Blocked Websites yet.';
+        x.style.border = '2px solid black';
+        x.style.borderRadius = '5px';
+        x.style.height = '400px';
+    }
+        // document.getElementById('blocked_urls_view').innerHTML='<h3>No URLs Blocked yet.</h3>';
     document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
     for(let i =0; i< blockedWebsites.length; i++) {
         document.getElementById(blockedWebsites[i]).addEventListener('click',removeBlocking, false)
