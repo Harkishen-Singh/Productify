@@ -1,13 +1,16 @@
 // initialising the chrome storage
 let initialiseMainMemory = {
-        blockedWebsites:[""],
+        blockedWebsites:["https://www.defaultsomethingss.com/*"],
         allUrls:[],
         dictionaryWords:[],
         wordId: 0,
         articleListURL:[]
 };
+function setup() {
+    chrome.storage.local.set({'mainMemory': initialiseMainMemory})
+}
 
-chrome.runtime.onInstalled.addListener(chrome.storage.local.set({'mainMemory': initialiseMainMemory}));
+chrome.runtime.onInstalled.addListener(setup);
 
 var menu1 = {
     id: "meaning",
@@ -101,13 +104,17 @@ function updateFilters(urls) {
       var blockedUrls = [];
       chrome.storage.local.get('mainMemory', (details) => {
         blockedUrls = details.mainMemory.blockedWebsites;
+        console.log('list of blocked urls below-- background')
+        console.log(blockedUrls)
         chrome.webRequest.onBeforeRequest.addListener(blockRequest, {
-            urls: blockedUrls
-          //   [
-          //       "*://*.facebook.com/*"
-          //     ]
+            urls: 
+            blockedUrls
+            // [
+            //     "https://www.facebook.com/"
+            //   ]
           
           }, ['blocking']); 
       });
       
 } updateFilters(); 
+setInterval(updateFilters,2000)
