@@ -1,12 +1,13 @@
 
-chrome.storage.local.get('mainMemory', (details) => {
+chrome.storage.sync.get('mainMemory', (details) => {
     let allUrls = details.mainMemory.allUrls, 
         allURlsNode = '',allBlockedNodes = '',
         blockedWebsites = details.mainMemory.blockedWebsites;
     console.warn(allUrls)
     for(let i =1; i< allUrls.length; i++) {
         allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-            '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url + ' </b></div>' + 
+            '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url
+            + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+allUrls[i].url +'" class="btn btn-danger">Block</button></div></div>';
         // let button = document.createElement('button');
         // button.className = 'btn btn-danger'
@@ -62,7 +63,7 @@ chrome.storage.local.get('mainMemory', (details) => {
 function addBlocking(element) {
     console.log('thisss' + this.id)
     console.log(this.id)
-    chrome.storage.local.get('mainMemory', (details) => {
+    chrome.storage.sync.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
             details.mainMemory.blockedWebsites.push(this.id);
             let allURls = details.mainMemory.allUrls;
@@ -82,7 +83,7 @@ function addBlocking(element) {
 function removeBlocking(element) {
     console.log('removeBLocking invoked' + this.id)
     console.log(this.id)
-    chrome.storage.local.get('mainMemory', (details) => {
+    chrome.storage.sync.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
             let blockedWebsites = details.mainMemory.blockedWebsites;
             for(let j=0;j<blockedWebsites.length; j++) {

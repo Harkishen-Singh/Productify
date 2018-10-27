@@ -7,7 +7,7 @@ let initialiseMainMemory = {
         articleListURL:[]
 };
 function setup() {
-    chrome.storage.local.set({'mainMemory': initialiseMainMemory})
+    chrome.storage.sync.set({'mainMemory': initialiseMainMemory})
 }
 
 chrome.runtime.onInstalled.addListener(setup);
@@ -55,7 +55,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         };
         chrome.windows.create(search,function(){});
 
-        chrome.storage.local.get('mainMemory', function (details) {
+        chrome.storage.sync.get('mainMemory', function (details) {
             var words = details.mainMemory.dictionaryWords;
             var word_num  = details.mainMemory.wordId;
             var newWord = {
@@ -67,7 +67,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             words.push(newWord);
             details.mainMemory.dictionaryWords = words;
             details.mainMemory.wordId = x;          
-            chrome.storage.local.set({'mainMemory': details.mainMemory})          
+            chrome.storage.sync.set({'mainMemory': details.mainMemory})          
         });
     }
 
@@ -104,7 +104,7 @@ function updateFilters(urls) {
       }
 
       var blockedUrls = [];
-      chrome.storage.local.get('mainMemory', (details) => {
+      chrome.storage.sync.get('mainMemory', (details) => {
         blockedUrls = details.mainMemory.blockedWebsites;
         console.log('list of blocked urls below-- background')
         console.log(blockedUrls)
@@ -120,3 +120,19 @@ function updateFilters(urls) {
       
 } updateFilters(); 
 setInterval(updateFilters,2000)
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if(request.domOBJ){
+        console.warn('received domOBJ message')
+        chrome.storage.sync.get('mainMemory', (details) => {
+            let allUrls = details.mainMemory.allUrls;
+            for( let i=0; i< allUrls.length; i++) {
+                if (allUrls[i].url === request.domOBJ.url) {
+                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;
+                    chrome.storage.sync.set({'mainMemory': details.mainMemory})
+                }
+            }
+            
+        })
+    }
+})
