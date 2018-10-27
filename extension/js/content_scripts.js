@@ -55,3 +55,34 @@ var messageObject = {
 //     }
 // })
 
+class TimeCalculate {	
+    constructor() {	
+        this.startTime = '';	
+        this.stopTime = '';	
+        this.timeOrphan = new Date();	
+        this.totalTime = 0; // in seconds	
+        this.URL = document.URL;	
+    }	
+    startTimerCounter() {	
+        this.startTime = this.timeOrphan;	
+        setInterval(() => {	
+            this.totalTime += this.calculate();	
+            let objectDOM = {	
+                'url':this.URL,	
+                'totalTime':this.totalTime	
+            }	
+            chrome.runtime.sendMessage({domOBJ: objectDOM})	
+            	
+        }, 1000)	
+    }	
+    calculate() {	
+        return 1;	
+    }	
+    diffTime() {	
+        this.timeViewed = Math.abs(this.stopTime - this.startTime); 	
+        alert('Time viewed : '+this.timeViewed);	
+        console.log('Time Watched : '+this.timeViewed)	
+    }	
+}	
+ let object = new TimeCalculate();	
+window.onload = object.startTimerCounter();	

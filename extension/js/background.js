@@ -120,3 +120,19 @@ function updateFilters(urls) {
       
 } updateFilters(); 
 setInterval(updateFilters,2000)
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {	
+    if(request.domOBJ){	
+        console.warn('received domOBJ message')	
+        chrome.storage.sync.get('mainMemory', (details) => {	
+            let allUrls = details.mainMemory.allUrls;	
+            for( let i=0; i< allUrls.length; i++) {	
+                if (allUrls[i].url === request.domOBJ.url) {	
+                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;	
+                    chrome.storage.sync.set({'mainMemory': details.mainMemory})	
+                }	
+            }	
+            	
+        })	
+    }	
+})
