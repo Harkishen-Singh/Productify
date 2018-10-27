@@ -110,7 +110,25 @@ function articleViewHandler() {
         let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
         let totalArticles = allSavedArticles.length;
         for(let i=0; i< totalArticles; i++) {
-            document.getElementById('articleTitle').innerHTML += allSavedArticles[i].URL + '<br>'
+            let x = document.createElement('p');
+            x.id = allSavedArticles[i].URL;
+            x.innerHTML = allSavedArticles[i].URL + '<br>';
+            x.addEventListener('click', assignActionsArticles, false )
+            document.getElementById('articleTitle').appendChild(x)
         }
     })
 } articleViewHandler();
+
+function assignActionsArticles(el) {
+    console.log('invoked eventhandler with '+this.id);
+    let id = this.id;
+    chrome.storage.local.get('savedArticlesCodeZero', (details) => {
+        let allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
+        for(let j=0; j<allSavedArticles2.length; j++) {
+            if (allSavedArticles2[j].URL === this.id) {
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br>' + allSavedArticles2[j].message;
+                break;
+            }
+        }
+    });
+}
