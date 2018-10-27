@@ -4,11 +4,14 @@ let initialiseMainMemory = {
         allUrls:[{url: "https://www.defaultsomethingss.com/*", time: '0'}],
         dictionaryWords:[],
         wordId: 0,
-        articleListURL:[],
-        savedArticles:[]
+        articleListURL:[]
 };
+let savedArticles2 = {
+    savedArticles :[]
+}
 function setup() {
-    chrome.storage.sync.set({'mainMemory': initialiseMainMemory})
+    chrome.storage.local.set({'mainMemory': initialiseMainMemory})
+    chrome.storage.local.set({'savedArticlesCodeZero': savedArticles2})
 }
 
 chrome.runtime.onInstalled.addListener(setup);
@@ -49,14 +52,14 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };
         chrome.windows.create(search,function(){});
 
-        chrome.storage.sync.get('mainMemory', function (details) {
+        chrome.storage.local.get('mainMemory', function (details) {
             var words = details.mainMemory.dictionaryWords;
             var word_num  = details.mainMemory.wordId;
             var newWord = {
@@ -68,7 +71,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             words.push(newWord);
             details.mainMemory.dictionaryWords = words;
             details.mainMemory.wordId = x;          
-            chrome.storage.sync.set({'mainMemory': details.mainMemory})          
+            chrome.storage.local.set({'mainMemory': details.mainMemory})          
         });
     }
 
@@ -78,8 +81,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };
@@ -105,7 +108,7 @@ function updateFilters(urls) {
       }
 
       var blockedUrls = [];
-      chrome.storage.sync.get('mainMemory', (details) => {
+      chrome.storage.local.get('mainMemory', (details) => {
         blockedUrls = details.mainMemory.blockedWebsites;
         console.log('list of blocked urls below-- background')
         console.log(blockedUrls)
@@ -122,48 +125,46 @@ function updateFilters(urls) {
 } updateFilters(); 
 setInterval(updateFilters,2000)
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request.domOBJ) {
-        console.warn('received domOBJ message')
-        chrome.storage.sync.get('mainMemory', (details) => {
-            let allUrls = details.mainMemory.allUrls;
-            for( let i=0; i< allUrls.length; i++) {
-                if (allUrls[i].url === request.domOBJ.url) {
-                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;
-                    chrome.storage.sync.set({'mainMemory': details.mainMemory})
-                }
-            }
-            
-        })
-    }
-    if(request.savedArticles) {
-        console.warn('gott in function')
-        console.warn(request.savedArticles)
-        chrome.storage.sync.get('mainMemory', (details) => {
-            let savedArticles = details.mainMemory.savedArticles;
-            for( let i=0; i< savedArticles.length; i++) {
-                if(!(request.savedArticles in savedArticles)) {
-                    console.warn('gott in ******----------')
-                    details.mainMemory.savedArticles.push(request.savedArticles)
-                    chrome.storage.sync.set({'mainMemory': details.mainMemory})
-                }
-            }
-            if (savedArticles.length === 0){
-                console.warn('gott in ****** ===== 0')
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {	
+    if(request.domOBJ){	
+        console.warn('received domOBJ message')	
+        chrome.storage.local.get('mainMemory', (details) => {	
+            let allUrls = details.mainMemory.allUrls;	
+            for( let i=0; i< allUrls.length; i++) {	
+                if (allUrls[i].url === request.domOBJ.url) {	
+                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;	
+                    chrome.storage.local.set({'mainMemory': details.mainMemory})	
+                }	
+            }	
+            	
+        })	
+    }	
+    else if(request.savedArticles) {
+        console.warn('got inside saved articles')
+        chrome.storage.local.get('savedArticlesCodeZero', (details) => {
+            let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+            if (allSavedArticles.length===0){
+                console.log('in ==0 case')
                 let a = []
                 a.push(request.savedArticles)
-                details.mainMemory.savedArticles = a;
-                chrome.storage.sync.set({'mainMemory': details.mainMemory})
+                console.log('a is ')
+                console.log(a)
+                details.savedArticlesCodeZero.savedArticles.push(request.savedArticles)
+                chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
             }
-            
+            else if (!(request.savedArticles in allSavedArticles)){
+                console.log('NORMAL CASES')
+                details.savedArticlesCodeZero.savedArticles.push(request.savedArticles);
+                chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
+            }
         })
     }
 })
 
 setInterval(()=> {
-    chrome.storage.sync.get('mainMemory', (details) => {
+    chrome.storage.local.get('savedArticlesCodeZero', (details) => {
         console.warn('saved articles below')
-        console.warn(details.mainMemory.savedArticles)
+        console.warn(details.savedArticlesCodeZero.savedArticles)
     })
 }, 5000)
 
