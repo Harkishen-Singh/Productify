@@ -8,10 +8,11 @@ function addCurrentUrlAfterCheckMemory() {
         console.warn(allUrls);
         if (! (currentUrl in allUrls)) {
             if(allUrls.length===1) {
-                allUrls[0] = currentUrl;
+                allUrls[0].url = currentUrl;
+                allUrls[0].time = '';
             }
             else {
-                allUrls.push(currentUrl);
+                allUrls.push({url:currentUrl, time:''});
             }
             
             details.mainMemory.allUrls = allUrls;
