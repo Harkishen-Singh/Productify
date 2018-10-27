@@ -4,7 +4,8 @@ let initialiseMainMemory = {
         allUrls:[{url: "https://www.defaultsomethingss.com/*", time: '0'}],
         dictionaryWords:[],
         wordId: 0,
-        articleListURL:[]
+        articleListURL:[],
+        savedArticles:[]
 };
 function setup() {
     chrome.storage.sync.set({'mainMemory': initialiseMainMemory})
@@ -122,7 +123,7 @@ function updateFilters(urls) {
 setInterval(updateFilters,2000)
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request.domOBJ){
+    if(request.domOBJ) {
         console.warn('received domOBJ message')
         chrome.storage.sync.get('mainMemory', (details) => {
             let allUrls = details.mainMemory.allUrls;
@@ -135,4 +136,35 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             
         })
     }
+    if(request.savedArticles) {
+        console.warn('gott in function')
+        console.warn(request.savedArticles)
+        chrome.storage.sync.get('mainMemory', (details) => {
+            let savedArticles = details.mainMemory.savedArticles;
+            for( let i=0; i< savedArticles.length; i++) {
+                if(!(request.savedArticles in savedArticles)) {
+                    console.warn('gott in ******----------')
+                    details.mainMemory.savedArticles.push(request.savedArticles)
+                    chrome.storage.sync.set({'mainMemory': details.mainMemory})
+                }
+            }
+            if (savedArticles.length === 0){
+                console.warn('gott in ****** ===== 0')
+                let a = []
+                a.push(request.savedArticles)
+                details.mainMemory.savedArticles = a;
+                chrome.storage.sync.set({'mainMemory': details.mainMemory})
+            }
+            
+        })
+    }
 })
+
+setInterval(()=> {
+    chrome.storage.sync.get('mainMemory', (details) => {
+        console.warn('saved articles below')
+        console.warn(details.mainMemory.savedArticles)
+    })
+}, 5000)
+
+

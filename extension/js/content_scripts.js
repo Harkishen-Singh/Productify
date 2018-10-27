@@ -30,20 +30,29 @@ function addCurrentUrlAfterCheckMemory() {
 
 // articles
 
-var DOMs = document.querySelectorAll('h, p, div');
-console.warn('DOMs below')
-var message = '', date = new Date();
+function savedArticles() {
+    var DOMs = document.querySelectorAll('h, p, div');
+    console.warn('DOMs below')
+    var message = '', date = new Date();
 
-for(let i=0; i< DOMs.length; i++) {
-    message += DOMs[i].innerText;
+    for(let i=0; i< DOMs.length; i++) {
+        message += DOMs[i].innerText;
+    }
+    console.log('content page is below')
+    console.log(message)
+
+
+    var messageObject = {
+        'URL': document.URL,
+        'message':message,
+        'date': date
+    }
+
+    chrome.runtime.sendMessage({savedArticles: messageObject})
 }
-console.log('content page is below')
-console.log(message)
-var messageObject = {
-    'URL': document.URL,
-    'message':message,
-    'date': date
-}
+
+
+
 // $.ajax({
 //     url:'https://localhost:5000',
 //     data: 'object=' +JSON.stringify(messageObject)  ,
@@ -73,10 +82,10 @@ class TimeCalculate {
             }
             chrome.runtime.sendMessage({domOBJ: objectDOM})
             
-        }, 1000)
+        }, 3000)
     }
     calculate() {
-        return 1;
+        return 3;
     }
     diffTime() {
         this.timeViewed = Math.abs(this.stopTime - this.startTime); 
@@ -87,6 +96,9 @@ class TimeCalculate {
 
 let object = new TimeCalculate();
 window.onload = object.startTimerCounter();
+
+savedArticles();
+
 
 
 
