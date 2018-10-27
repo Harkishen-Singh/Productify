@@ -48,8 +48,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };
@@ -77,8 +77,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };

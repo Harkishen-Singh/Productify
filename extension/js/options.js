@@ -73,7 +73,8 @@ function addBlocking(element) {
                 }
             }
             chrome.storage.local.set({'mainMemory': details.mainMemory})
-            alert('Added '+this.id+' to List of Blocked websites')
+            alert('Added '+this.id+' to List of Blocked websites');
+            window.location.reload();
         }
     })
 }
@@ -95,7 +96,8 @@ function removeBlocking(element) {
             details.mainMemory.allUrls.push({url:this.id, time:''});
             // details.mainMemory.blockedWebsites = blockedWebsites;
             chrome.storage.local.set({'mainMemory': details.mainMemory})
-            alert('Removed '+this.id+' to List of Blocked websites')
+            alert('Removed '+this.id+' from List of Blocked websites');
+            window.location.reload();
         }
     })
 }

@@ -44,14 +44,14 @@ var messageObject = {
     'message':message,
     'date': date
 }
-$.ajax({
-    url:'https://localhost:5000',
-    data: 'object=' +JSON.stringify(messageObject)  ,
-    success: function(r,status){
-        console.warn('ajax request with result: '+r+' status: '+status);
-    },
-    error: function(xhr,status,error){
-        throw error;
-    }
-})
+// $.ajax({
+//     url:'https://localhost:5000',
+//     data: 'object=' +JSON.stringify(messageObject)  ,
+//     success: function(r,status){
+//         console.warn('ajax request with result: '+r+' status: '+status);
+//     },
+//     error: function(xhr,status,error){
+//         throw error;
+//     }
+// })
 
