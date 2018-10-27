@@ -1,7 +1,7 @@
 // initialising the chrome storage
 let initialiseMainMemory = {
         blockedWebsites:["https://www.defaultsomethingss.com/*"],
-        allUrls:[],
+        allUrls:[{url: "https://www.defaultsomethingss.com/*", time: '0'}],
         dictionaryWords:[],
         wordId: 0,
         articleListURL:[]

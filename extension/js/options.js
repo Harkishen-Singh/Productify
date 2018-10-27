@@ -4,7 +4,7 @@ chrome.storage.local.get('mainMemory', (details) => {
         allURlsNode = '',allBlockedNodes = '',
         blockedWebsites = details.mainMemory.blockedWebsites;
     console.warn(allUrls)
-    for(let i =0; i< allUrls.length; i++) {
+    for(let i =1; i< allUrls.length; i++) {
         allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
             '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+allUrls[i].url +'" class="btn btn-danger">Block</button></div></div>';
@@ -23,7 +23,7 @@ chrome.storage.local.get('mainMemory', (details) => {
     // }
     
     document.getElementById('all_urls_view').innerHTML=allURlsNode;
-    for(let i =0; i< allUrls.length; i++) {
+    for(let i =1; i< allUrls.length; i++) {
         document.getElementById(allUrls[i].url).addEventListener('click',addBlocking, false)
     }
 
