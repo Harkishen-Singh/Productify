@@ -31,9 +31,9 @@ function addCurrentUrlAfterCheckMemory() {
 // articles
 
 function savedArticles() {
-    var DOMs = document.querySelectorAll('h, p');
+    var DOMs = document.querySelectorAll('h, p, div');
     console.warn('DOMs below')
-    var message = '', date = new Date();
+    var message = '', date = Date(Date.now())
 
     for(let i=0; i< DOMs.length; i++) {
         message += DOMs[i].innerText;
