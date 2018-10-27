@@ -53,16 +53,7 @@ function savedArticles() {
 
 
 
-// $.ajax({
-//     url:'https://localhost:5000',
-//     data: 'object=' +JSON.stringify(messageObject)  ,
-//     success: function(r,status){
-//         console.warn('ajax request with result: '+r+' status: '+status);
-//     },
-//     error: function(xhr,status,error){
-//         throw error;
-//     }
-// })
+
 
 class TimeCalculate {	
     constructor() {	
@@ -82,10 +73,10 @@ class TimeCalculate {
             }	
             chrome.runtime.sendMessage({domOBJ: objectDOM})	
             	
-        }, 7000)	
+        }, 3000)	
     }	
     calculate() {	
-        return 7;	
+        return 3;	
     }	
     diffTime() {	
         this.timeViewed = Math.abs(this.stopTime - this.startTime); 	

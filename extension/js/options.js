@@ -5,8 +5,9 @@ chrome.storage.local.get('mainMemory', (details) => {
         blockedWebsites = details.mainMemory.blockedWebsites;
     console.warn(allUrls)
     for(let i =1; i< allUrls.length; i++) {
-        allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-            '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url + ' </b></div>' + 
+        allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;overflow-x:auto;max-width:90%;">' +
+            '<div class="col-md-10" style="font-size:15px;"><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:5px;" >'
+            +parseInt(allUrls[i].time)/60+' mins</span> <b> '+ allUrls[i].url + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+allUrls[i].url +'" class="btn btn-danger">Block</button></div></div>';
         // let button = document.createElement('button');
         // button.className = 'btn btn-danger'
@@ -140,3 +141,7 @@ function assignActionsArticles(el) {
         }
     });
 }
+
+$(document).ready(()=>{
+    $('sth').hide();
+})

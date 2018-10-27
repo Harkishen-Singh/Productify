@@ -152,6 +152,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }	
     else if(request.savedArticles) {
         console.warn('got inside saved articles')
+        // $.ajax({
+        //     url:'https://localhost:5000/',
+        //     data: 'object=' +JSON.stringify(messageObject)  ,
+        //     success: function(r,status){
+        //         console.warn('ajax request with result: '+r+' status: '+status);
+        //     },
+        //     error: function(xhr,status,error){
+        //         throw error;
+        //     }
+        // })
         chrome.storage.local.get('savedArticlesCodeZero', (details) => {
             let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
             if (allSavedArticles.length===0){
@@ -179,4 +189,5 @@ setInterval(()=> {
     })
 }, 5000)
 
+chrome.runtime.sendMessage({urlCurr: document.URL})
 

@@ -1,10 +1,10 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
-const mongo = require('mongodb').MongoClient,
-const path = require('path');
+const mongo = require('mongodb').MongoClient;
 const port = process.env.PORT || 5000;
 const login = require('./login');
 const signup = require('./signup');
+uri='';
 
 url = '0.0.0.0';
 
@@ -17,20 +17,25 @@ app.use((req,res,next)=>{
 });
 
 app.get('/', (req ,res) => {
-    res.send('Serving backend at host => '+host+' port => '+port);
+    res.send('Serving backend at host => '+url+' port => '+port);
 })
 
 app.post('/login', (req, res) => {
     login.checkLogin(req, res);
+})
+app.get('/saveArticle', (req, res) => {
+    let obj = req.query.object;
+    mongo.connect('')
 })
 
 app.post('/signup', (req, res) => {
     signup.checkSignup(req,res)
 })
 
-const server = app.listen(port, url, error => {
-    if(error) throw error;
+const server = app.listen(port, url,(e) => {
+    if(e) throw e;
     else {
         console.log('Running at \n'+server.address().address + '\t' +server.address().port);
     }
 })
+
