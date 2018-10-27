@@ -1,5 +1,5 @@
 
-chrome.storage.local.get('mainMemory', (details) => {
+chrome.storage.sync.get('mainMemory', (details) => {
     let allUrls = details.mainMemory.allUrls, 
         allURlsNode = '',allBlockedNodes = '',
         blockedWebsites = details.mainMemory.blockedWebsites;
@@ -62,7 +62,7 @@ chrome.storage.local.get('mainMemory', (details) => {
 function addBlocking(element) {
     console.log('thisss' + this.id)
     console.log(this.id)
-    chrome.storage.local.get('mainMemory', (details) => {
+    chrome.storage.sync.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
             details.mainMemory.blockedWebsites.push(this.id);
             let allURls = details.mainMemory.allUrls;
@@ -72,7 +72,7 @@ function addBlocking(element) {
                     allURls.splice(j,1)
                 }
             }
-            chrome.storage.local.set({'mainMemory': details.mainMemory})
+            chrome.storage.sync.set({'mainMemory': details.mainMemory})
             alert('Added '+this.id+' to List of Blocked websites');
             window.location.reload();
         }
@@ -82,7 +82,7 @@ function addBlocking(element) {
 function removeBlocking(element) {
     console.log('removeBLocking invoked' + this.id)
     console.log(this.id)
-    chrome.storage.local.get('mainMemory', (details) => {
+    chrome.storage.sync.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
             let blockedWebsites = details.mainMemory.blockedWebsites;
             for(let j=0;j<blockedWebsites.length; j++) {
@@ -95,7 +95,7 @@ function removeBlocking(element) {
             }
             details.mainMemory.allUrls.push({url:this.id, time:''});
             // details.mainMemory.blockedWebsites = blockedWebsites;
-            chrome.storage.local.set({'mainMemory': details.mainMemory})
+            chrome.storage.sync.set({'mainMemory': details.mainMemory})
             alert('Removed '+this.id+' from List of Blocked websites');
             window.location.reload();
         }
