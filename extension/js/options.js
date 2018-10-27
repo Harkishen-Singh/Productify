@@ -102,3 +102,15 @@ function removeBlocking(element) {
     })
 }
 
+
+// article view below
+
+function articleViewHandler() {
+    chrome.storage.local.get('savedArticlesCodeZero', (details) => {
+        let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+        let totalArticles = allSavedArticles.length;
+        for(let i=0; i< totalArticles; i++) {
+            document.getElementById('articleTitle').innerHTML += allSavedArticles[i].URL + '<br>'
+        }
+    })
+} articleViewHandler();
