@@ -6,14 +6,19 @@ function addCurrentUrlAfterCheckMemory() {
         let allUrls = details.mainMemory.allUrls;
         console.warn('allUrls below')
         console.warn(allUrls);
-        if (! (currentUrl in allUrls)) {
-            if(allUrls.length===1) {
-                allUrls[0].url = currentUrl;
-                allUrls[0].time = '';
+        
+        var i;
+        let present = false;
+        for(i=0;i<allUrls.length;++i){
+            if(allUrls[i].url == currentUrl){
+                present = true;
+                break;
             }
-            else {
+        }
+
+        if (! (present)) {
                 allUrls.push({url:currentUrl, time:''});
-            }
+           
             
             details.mainMemory.allUrls = allUrls;
             console.log('updated urls below')
@@ -22,3 +27,4 @@ function addCurrentUrlAfterCheckMemory() {
         }
     });
 } addCurrentUrlAfterCheckMemory();
+
