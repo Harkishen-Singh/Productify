@@ -59,20 +59,31 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         };
         chrome.windows.create(search,function(){});
 
-        chrome.storage.local.get('mainMemory', function (details) {
-            var words = details.mainMemory.dictionaryWords;
-            var word_num  = details.mainMemory.wordId;
-            var newWord = {
-                id: word_num,
-                word: text,
-                url: googleUrl
-            };
-            var x = word_num + 1;
-            words.push(newWord);
-            details.mainMemory.dictionaryWords = words;
-            details.mainMemory.wordId = x;          
-            chrome.storage.local.set({'mainMemory': details.mainMemory})          
-        });
+            chrome.storage.local.get('mainMemory', function (details) {
+                var words = details.mainMemory.dictionaryWords;
+                var word_num  = details.mainMemory.wordId;
+                
+                let present = false;
+                for(let i=0;i<words.length;++i){
+                    if(words[i].word == text){
+                        present = true;
+                        break;
+                    }
+                }
+                if(! present){
+                    var newWord = {
+                        id: word_num,
+                        word: text,
+                        url: googleUrl
+                    };
+                    var x = word_num + 1;
+                    words.push(newWord);
+                    details.mainMemory.dictionaryWords = words;
+                    details.mainMemory.wordId = x;          
+                    chrome.storage.local.set({'mainMemory': details.mainMemory})
+                }
+                          
+            });
     }
 
     if (clickData.menuItemId == "translation" && text )
