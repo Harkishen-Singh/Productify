@@ -3,6 +3,7 @@ let initialiseMainMemory = {
         blockedWebsites:[""],
         allUrls:[],
         dictionaryWords:[],
+        wordId: 0,
         articleListURL:[]
 };
 
@@ -53,12 +54,15 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
 
         chrome.storage.local.get('mainMemory', function (details) {
             var words = details.mainMemory.dictionaryWords;
+            var word_num  = details.mainMemory.wordId;
             var newWord = {
+                id: word_num,
                 word: text,
                 url: googleUrl
             };
+            var x = word_num + 1;
             words.push(newWord);           
-            chrome.storage.local.set({'dictionaryWords': words}, function() {});            
+            chrome.storage.local.set({'dictionaryWords': words,'wordId': x}, function() {});          
         });
     }
 
