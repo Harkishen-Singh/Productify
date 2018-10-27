@@ -56,7 +56,14 @@ chrome.storage.local.get('mainMemory', (details) => {
         document.getElementById(blockedWebsites[i]).addEventListener('click',removeBlocking, false)
     }
 
-
+    let words = details.mainMemory.dictionaryWords;
+    let wordsNode = '';
+    for(let i =0; i< words.length; i++) {
+        wordsNode += '<div class="row" style="border-top: 1px solid black;margin:5px;padding-bottom: 10px;"></div>' +
+            '<div style="font-size:15px;"> <b>'+ words[i].word + ' </b></div>'; 
+    }
+    document.getElementById('word_view').innerHTML=wordsNode;
+    
 })
 
 function addBlocking(element) {
@@ -101,6 +108,7 @@ function removeBlocking(element) {
         }
     })
 }
+
 
 
 // article view below
