@@ -8,52 +8,58 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../styles/bootstrap.min.css" />
     <script src="../js/front_page.js"></script>
-    
     <style>
         .col-md-6 {
             padding:20px;
         }
+        #blocked-num, #dictionary-num {
+            color:rgb(245, 229, 91);
+            font-weight: bolder;
+            background-color: rgb(126, 38, 38);
+            text-align: center;
+            border-radius:200px;
+        }
+        hr {
+            font-size:20px;
+        }
     </style>
 </head>
 <body>
-    <div class="text-center" style="background-color:rgb(23, 57, 131);color: floralwhite;"><strong>PRODUCTIFY</strong><br>Control and Diversify the Dependance on the Web</div><hr>
+    <h3 class="text-center" style="background-color:rgb(23, 57, 131);color: floralwhite;line-height: 30px; margin:0px !important; "><strong>PRODUCTIFY</strong><br></h3><hr>
     <div class="container">
         <div class="col-md-12 ">
-            <h4>Productivity Meter:</h4>
-            <hr>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6 col-xs-6 col-sm-6">
-                <div id="blocked-num"></div>
-                <p>No.of Websites Blocked</p>
-            </div>
-            <div class="col-md-6 col-xs-6 col-sm-6">
-                Time Spent on current Website:
+            <h5>Your Productivity Score: <75%> </h5>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">75%</div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-xs-6 col-sm-6">
-                <div id="dictionary-num"></div>
-                <p>No. of words in Dictionary</p>
-            </div>
-            <div class="col-md-6 col-xs-6 col-sm-6">
-                No. of Articles:
-            </div>
-        </div>
-
     </div>
-    <script>
-        console.log('this is working popup')
-        let blocks = document.getElementById('blockWebs');
-        blocks.innerHTML = 2;
-        alert('working')
-        chrome.storage.sync.get('mainMemory', (details) => {
-            let blocked = details.mainMemory.blockedWebsites;
-            blocks.innerHTML = blocked.length -1;
-            console.log('front_page.js is '+blocked.length-1)
-        });
-    </script>
-    
+    <hr>
+    <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-xs-6 col-sm-6" style="border:1px black solid;">
+                    <div id="blocked-num"></div>
+                    <br>
+                    <p class="text-center">Websites Blocked</p>
+                </div>
+                <div class="col-md-6 col-xs-6 col-sm-6" style="border:1px black solid;">
+                    <div id="dictionary-num"></div>
+                    <br>
+                    <p class="text-center">Words in Dictionary</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-6 col-sm-6" style="border:1px black solid;">
+                    <br>
+                    <p class="text-center">Time Spent on current Website:</p>
+                </div>
+                
+                <div class="col-md-6 col-xs-6 col-sm-6" style="border:1px black solid;">
+                    <br>
+                    <br>
+                    <p class="text-center">Articles Saved:</p>
+                </div>
+            </div>
+    </div>
 </body>
 </html>

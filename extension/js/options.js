@@ -6,8 +6,7 @@ chrome.storage.sync.get('mainMemory', (details) => {
     console.warn(allUrls)
     for(let i =1; i< allUrls.length; i++) {
         allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-            '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url
-            + ' </b></div>' + 
+            '<div class="col-md-10" style="font-size:15px;"> <b> '+ allUrls[i].url + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+allUrls[i].url +'" class="btn btn-danger">Block</button></div></div>';
         // let button = document.createElement('button');
         // button.className = 'btn btn-danger'
@@ -74,7 +73,8 @@ function addBlocking(element) {
                 }
             }
             chrome.storage.sync.set({'mainMemory': details.mainMemory})
-            alert('Added '+this.id+' to List of Blocked websites')
+            alert('Added '+this.id+' to List of Blocked websites');
+            window.location.reload();
         }
     })
 }
@@ -96,7 +96,8 @@ function removeBlocking(element) {
             details.mainMemory.allUrls.push({url:this.id, time:''});
             // details.mainMemory.blockedWebsites = blockedWebsites;
             chrome.storage.sync.set({'mainMemory': details.mainMemory})
-            alert('Removed '+this.id+' to List of Blocked websites')
+            alert('Removed '+this.id+' from List of Blocked websites');
+            window.location.reload();
         }
     })
 }

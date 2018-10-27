@@ -48,8 +48,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };
@@ -77,8 +77,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         var search = {
             "url": googleUrl,
             "type": "popup",
-            "top": 5,
-            "left": 5,
+            "top": 200,
+            "left": 300,
             "width": Math.round(screen.availWidth/2),
             "height": Math.round(screen.availHeight/2)
         };
@@ -121,18 +121,18 @@ function updateFilters(urls) {
 } updateFilters(); 
 setInterval(updateFilters,2000)
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request.domOBJ){
-        console.warn('received domOBJ message')
-        chrome.storage.sync.get('mainMemory', (details) => {
-            let allUrls = details.mainMemory.allUrls;
-            for( let i=0; i< allUrls.length; i++) {
-                if (allUrls[i].url === request.domOBJ.url) {
-                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;
-                    chrome.storage.sync.set({'mainMemory': details.mainMemory})
-                }
-            }
-            
-        })
-    }
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {	
+    if(request.domOBJ){	
+        console.warn('received domOBJ message')	
+        chrome.storage.sync.get('mainMemory', (details) => {	
+            let allUrls = details.mainMemory.allUrls;	
+            for( let i=0; i< allUrls.length; i++) {	
+                if (allUrls[i].url === request.domOBJ.url) {	
+                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;	
+                    chrome.storage.sync.set({'mainMemory': details.mainMemory})	
+                }	
+            }	
+            	
+        })	
+    }	
 })

@@ -7,6 +7,6 @@
     border-radius: 5px;
     padding: 10px;
     height: 400px;
-    widows: 100%;
+    width: 100%;
     overflow-y: auto;
 }
