@@ -7,7 +7,13 @@ function addCurrentUrlAfterCheckMemory() {
         console.warn('allUrls below')
         console.warn(allUrls);
         if (! (currentUrl in allUrls)) {
-            allUrls.push(currentUrl);
+            if(allUrls.length===1) {
+                allUrls[0] = currentUrl;
+            }
+            else {
+                allUrls.push(currentUrl);
+            }
+            
             details.mainMemory.allUrls = allUrls;
             console.log('updated urls below')
             console.log(allUrls)
