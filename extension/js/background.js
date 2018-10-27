@@ -35,7 +35,10 @@ chrome.contextMenus.create(menu2);
 chrome.contextMenus.create(menu3);
 
 chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
-    if(clickData.menuItemId == "meaning" && clickData.selectionText)
+
+    var text = clickData.selectionText;
+
+    if(clickData.menuItemId == "meaning" && text)
     {
         var googleUrl = "https://www.google.com/search?safe=active&q=define+" + fixedEncodeURI(clickData.selectionText);
         var search = {
@@ -50,13 +53,16 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
 
         chrome.storage.local.get('mainMemory', function (details) {
             var words = details.mainMemory.dictionaryWords;
-            words.push({Url: googleUrl});           
-            chrome.storage.local.set({'dictionaryWords': words}, function() {}); 
-            
+            var newWord = {
+                word: text,
+                url: googleUrl
+            };
+            words.push(newWord);           
+            chrome.storage.local.set({'dictionaryWords': words}, function() {});            
         });
     }
 
-    if (clickData.menuItemId == "translation" && clickData.selectionText )
+    if (clickData.menuItemId == "translation" && text )
     {
         var googleUrl = "https://translate.google.com/#auto/en/" + fixedEncodeURI(clickData.selectionText);
         var search = {
@@ -70,7 +76,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         chrome.windows.create(search,function(){});
     }
 
-    if(clickData.menuItemId == "speak" && clickData.selectionText)
+    if(clickData.menuItemId == "speak" && text)
     {
         chrome.tts.speak(clickData.selectionText, {'lang': 'en-US','rate': 0.7});
     }
