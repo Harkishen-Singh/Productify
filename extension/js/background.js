@@ -55,7 +55,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         };
         chrome.windows.create(search,function(){});
 
-        <chrome className="storage sync"></chrome>.get('mainMemory', function (details) {
+        chrome.storage.sync.get('mainMemory', function (details) {
             var words = details.mainMemory.dictionaryWords;
             var word_num  = details.mainMemory.wordId;
             var newWord = {
@@ -67,7 +67,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             words.push(newWord);
             details.mainMemory.dictionaryWords = words;
             details.mainMemory.wordId = x;          
-            <chrome className="storage sync"></chrome>.set({'mainMemory': details.mainMemory})          
+            chrome.storage sync.set({'mainMemory': details.mainMemory})          
         });
     }
 
@@ -104,7 +104,7 @@ function updateFilters(urls) {
       }
 
       var blockedUrls = [];
-      <chrome className="storage sync"></chrome>.get('mainMemory', (details) => {
+      chrome.storage.sync.get('mainMemory', (details) => {
         blockedUrls = details.mainMemory.blockedWebsites;
         console.log('list of blocked urls below-- background')
         console.log(blockedUrls)
