@@ -1,5 +1,5 @@
 function name(){
-    chrome.storage.sync.get('mainMemory', (details) => {
+    chrome.storage.local.get('mainMemory', (details) => {
         let Urls = details.mainMemory.blockedWebsites;
         let len = Urls.length;
         let words = details.mainMemory.wordId;
