@@ -13,8 +13,11 @@ chrome.storage.local.get('mainMemory', (details) => {
         // button.addEventListener('click', )
         
     }
-    // if (allURlsNode.length === 0)
-    //     document.getElementById('all_urls_view').appendChild(document.createElement('h3').innerHTML='No URLs viewed yet.');
+    if (allURlsNode.length === 0) {
+        console.log('no urls viewd')
+        document.getElementById('all_urls_view').innerHTML='No URLs viewed yet.';
+    }
+    
     document.getElementById('all_urls_view').innerHTML=allURlsNode;
     for(let i =0; i< allUrls.length; i++) {
         document.getElementById(allUrls[i]).addEventListener('click',addBlocking, false)
@@ -32,8 +35,8 @@ chrome.storage.local.get('mainMemory', (details) => {
         // button.addEventListener('click', )
         
     }
-    // if (allBlockedNodes.length === 0)
-    //     document.getElementById('blocked_urls_view').appendChild(document.createElement('h3').innerHTML='No URLs viewed yet.');
+    if (allBlockedNodes.length === 0)
+        document.getElementById('blocked_urls_view').innerHTML='<h3>No URLs Blocked yet.</h3>';
     document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
     for(let i =0; i< blockedWebsites.length; i++) {
         document.getElementById(blockedWebsites[i]).addEventListener('click',removeBlocking, false)
