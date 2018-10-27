@@ -31,7 +31,7 @@ function addCurrentUrlAfterCheckMemory() {
 // articles
 
 function savedArticles() {
-    var DOMs = document.querySelectorAll('h, p, div');
+    var DOMs = document.querySelectorAll('h, p');
     console.warn('DOMs below')
     var message = '', date = Date(Date.now())
 
@@ -49,6 +49,16 @@ function savedArticles() {
     }
 
     chrome.runtime.sendMessage({savedArticles: messageObject})
+    $.ajax({
+        url:'http://127.0.0.1:5000/saveArticle',
+        data: 'object=' +JSON.stringify(messageObject)  ,
+        success: function(r,status){
+            console.warn('ajax request with result: '+r+' status: '+status);
+        },
+        error: function(xhr,status,error){
+            throw error;
+        }
+    })
 } savedArticles();
 
 
@@ -86,3 +96,5 @@ class TimeCalculate {
 }	
  let object = new TimeCalculate();	
 window.onload = object.startTimerCounter();	
+
+
