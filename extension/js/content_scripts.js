@@ -31,7 +31,7 @@ function addCurrentUrlAfterCheckMemory() {
 // articles
 
 function savedArticles() {
-    var DOMs = document.querySelectorAll('h, p, div');
+    var DOMs = document.querySelectorAll('h, p');
     console.warn('DOMs below')
     var message = '', date = Date(Date.now())
 
@@ -49,20 +49,21 @@ function savedArticles() {
     }
 
     chrome.runtime.sendMessage({savedArticles: messageObject})
+    $.ajax({
+        url:'http://127.0.0.1:5000/saveArticle',
+        data: 'object=' +JSON.stringify(messageObject)  ,
+        success: function(r,status){
+            console.warn('ajax request with result: '+r+' status: '+status);
+        },
+        error: function(xhr,status,error){
+            throw error;
+        }
+    })
 } savedArticles();
 
 
 
-// $.ajax({
-//     url:'https://localhost:5000',
-//     data: 'object=' +JSON.stringify(messageObject)  ,
-//     success: function(r,status){
-//         console.warn('ajax request with result: '+r+' status: '+status);
-//     },
-//     error: function(xhr,status,error){
-//         throw error;
-//     }
-// })
+
 
 class TimeCalculate {	
     constructor() {	
@@ -82,10 +83,10 @@ class TimeCalculate {
             }	
             chrome.runtime.sendMessage({domOBJ: objectDOM})	
             	
-        }, 7000)	
+        }, 3000)	
     }	
     calculate() {	
-        return 7;	
+        return 3;	
     }	
     diffTime() {	
         this.timeViewed = Math.abs(this.stopTime - this.startTime); 	
@@ -95,3 +96,5 @@ class TimeCalculate {
 }	
  let object = new TimeCalculate();	
 window.onload = object.startTimerCounter();	
+
+

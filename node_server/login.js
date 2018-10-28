@@ -51,5 +51,5 @@ function logIn(req, res) {
 }
 
 module.exports = {
-        checkLogin : LogIn,
+        checkLogin : logIn,
 }
