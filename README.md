@@ -38,4 +38,3 @@ Productify is great for general users but not limited to them! Productify can be
 <b>License:</b>
 MIT
 
-[Chrome Web Store]: <>
