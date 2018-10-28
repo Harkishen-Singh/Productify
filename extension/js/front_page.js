@@ -11,6 +11,8 @@ function name(){
         chrome.storage.local.get('savedArticlesCodeZero', (details2) => {
             let length = details2.savedArticlesCodeZero.savedArticles.length;
             document.getElementById('articles2').innerHTML = length;
+            let prod = (((parseInt(Urls)/parseInt(length))))*100;
+            document.getElementById('normalS').style.width = prod;
         })
 
     });
