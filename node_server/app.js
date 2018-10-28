@@ -42,11 +42,28 @@ app.get('/saveArticle', (req, res) => {
 
 });
 
+app.get('/getArticles', (req, res) => {
+    console.warn('received request')
+    mongo.connect(uri, (e, dbo) => {
+        if(e) console.error(e);
+        console.warn('[SUCCESS] connected to the database');
+        let db = dbo.db('code_zero');
+        db.collection('savedArticles').find({}).toArray((e, result) => {
+            if(e) throw e;
+            else{
+                console.warn(result)
+                res.send(result)
+            }
+        })
+        dbo.close();
+    })
+})
+
 app.post('/signup', (req, res) => {
     signup.checkSignup(req,res)
 })
 
-const server = app.listen(port, '0.0.0.0',(e) => {
+const server = app.listen(port, '127.0.0.1',(e) => {
     if(e) throw e;
     else {
         console.log('Running at \n'+server.address().address + '\t' +server.address().port);
