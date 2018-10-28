@@ -11,8 +11,35 @@ function name(){
         chrome.storage.local.get('savedArticlesCodeZero', (details2) => {
             let length = details2.savedArticlesCodeZero.savedArticles.length;
             document.getElementById('articles2').innerHTML = length;
-            let prod = (((parseInt(Urls)/parseInt(length))))*100;
-            document.getElementById('normalS').style.width = prod;
+            console.log('url '+(Urls.length-1)+' length '+length)
+            var prod = 0
+            prod = Math.floor((((parseInt(Urls.length-1)/parseInt(length+1))) * parseInt(words +1) )*100) ;
+            console.log('prod is '+prod)
+            document.getElementById('normalS').style.width = prod+'px';
+            document.getElementById('thiss').innerText = prod;
+            // document.getElementById('unique').style.width = prod + 'px'
+            // let ele = document.createElement('div');
+            // let a1 = document.createAttribute('role')
+            // a1.value =  'progressbar';
+            // let a2 = document.createAttribute('aria-valuenow')
+            // a2.value = prod
+            // let a3 = document.createAttribute('aria-valuemin')
+            // a3.value =  '0';
+            // let a4 = document.createAttribute('aria-valuemax')
+            // a4.value =  '100';
+            // document.getElementById('adder').removeChild(ele);
+            // ele.setAttributeNode(a1)
+            // ele.setAttributeNode(a2)
+            // ele.setAttributeNode(a3)
+            // ele.setAttributeNode(a4)
+            // ele.classList.add('progress-bar')
+            // ele.classList.add('progress-bar-striped')
+            // ele.classList.add('active')
+            // ele.style.width = prod + 'px';
+            // document.getElementById('adder').appendChild(ele);
+
+
+
         })
 
     });
