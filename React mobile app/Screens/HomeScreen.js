@@ -9,8 +9,8 @@ export default class HomeScreen extends Component {
             datasource : ds.cloneWithRows(['url', 'message','time']),
         }
     }
-    componentWillMount() {
-        fetch('http://127.0.0.1:5000/getArticles', {
+    componentDidMount() {
+        fetch('http://code-z.herokuapp.com/getArticles', {
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
@@ -19,6 +19,8 @@ export default class HomeScreen extends Component {
         })
         .then(resp => resp.json())
         .then(res => {
+            console.debug(res);
+            this.setState({ datasource: this.state.datasource.cloneWithRows(res) })
 
         })
     }
@@ -29,7 +31,7 @@ export default class HomeScreen extends Component {
                 <View >
                     <Text style={{marginBottom:10}}> Articles </Text>
                 </View>
-                <TouchableOpacity style={styles.articles} activeOpacity={0.55}>
+                {/* <TouchableOpacity style={styles.articles} activeOpacity={0.55}>
                     <View style={{flex:1}}>
                         <Text>Date : 17/10/18</Text>
                     </View>
@@ -46,13 +48,13 @@ export default class HomeScreen extends Component {
                         <Text style={styles.heading}>Rail runs over 61 in Amritsar Admist Dusshera celebrations.</Text>
                         <Text style={styles.url}>www.timesofindia.com/railway/india</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <ListView
                     dataSource={this.state.datasource}
                     renderRow={ data => 
                         <View style={{flexDirection:'column'}} >
-                            <TouchableOpacity style={styles.articles} activeOpacity={0.55}>
+                            <TouchableOpacity style={styles.articlesq} activeOpacity={0.55}>
                                 <View style={{flex:1}}>
                                     <Text>Date : {data.date}</Text>
                                 </View>
@@ -102,7 +104,8 @@ const styles = StyleSheet.create({
         borderColor:'green',
         borderWidth:1,
         padding:3,
-        borderRadius:5
+        borderRadius:5,
+        width:400
     },
     heading:{
         fontWeight:'bold',

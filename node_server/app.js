@@ -4,8 +4,8 @@ const mongo = require('mongodb').MongoClient;
 const port = process.env.PORT || 5000;
 const login = require('./login');
 const signup = require('./signup');
-// uri='mongodb+srv://muskan:movehack@cluster0-ldloc.mongodb.net/code_zero?retryWrites=true';
-uri = 'mongodb://127.0.0.1:27017'
+uri='mongodb+srv://muskan:movehack@cluster0-ldloc.mongodb.net/code_zero?retryWrites=true';
+// uri = 'mongodb://127.0.0.1:27017'
 url = '0.0.0.0';
 
 app.use(bodyParser.json());
@@ -63,7 +63,7 @@ app.post('/signup', (req, res) => {
     signup.checkSignup(req,res)
 })
 
-const server = app.listen(port, '127.0.0.1',(e) => {
+const server = app.listen(port, '0.0.0.0',(e) => {
     if(e) throw e;
     else {
         console.log('Running at \n'+server.address().address + '\t' +server.address().port);

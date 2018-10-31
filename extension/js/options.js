@@ -60,7 +60,7 @@ chrome.storage.local.get('mainMemory', (details) => {
     let words = details.mainMemory.dictionaryWords;
     let wordsNode = '';
     for(let i =0; i< words.length; i++) {
-        wordsNode += '<div class="row" style="border-top: 1px solid black;margin:5px;padding-bottom: 10px;"></div>' +
+        wordsNode += '<div class="row" style="margin:5px;padding-bottom: 10px;"></div>' +
             '<div style="font-size:15px;"> <b>'+ words[i].word + ' </b></div>'; 
     }
     document.getElementById('word_view').innerHTML=wordsNode;
