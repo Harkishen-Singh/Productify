@@ -17,28 +17,6 @@ function name(){
             console.log('prod is '+prod)
             document.getElementById('normalS').style.width = prod+'px';
             document.getElementById('thiss').innerText = prod;
-            // document.getElementById('unique').style.width = prod + 'px'
-            // let ele = document.createElement('div');
-            // let a1 = document.createAttribute('role')
-            // a1.value =  'progressbar';
-            // let a2 = document.createAttribute('aria-valuenow')
-            // a2.value = prod
-            // let a3 = document.createAttribute('aria-valuemin')
-            // a3.value =  '0';
-            // let a4 = document.createAttribute('aria-valuemax')
-            // a4.value =  '100';
-            // document.getElementById('adder').removeChild(ele);
-            // ele.setAttributeNode(a1)
-            // ele.setAttributeNode(a2)
-            // ele.setAttributeNode(a3)
-            // ele.setAttributeNode(a4)
-            // ele.classList.add('progress-bar')
-            // ele.classList.add('progress-bar-striped')
-            // ele.classList.add('active')
-            // ele.style.width = prod + 'px';
-            // document.getElementById('adder').appendChild(ele);
-
-
 
         })
 
@@ -60,14 +38,3 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 })
     
 setInterval(name,500);
-
-// let a = document.getElementById(mobileView);
-// a.addEventListener('click', () => {
-//     let b = document.createElement('input');
-//     b.type = 'text';
-//     b.id = 'keyEntry';
-//     let c = document.createElement('button');
-    
-// })
-
-
