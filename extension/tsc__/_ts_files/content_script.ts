@@ -8,12 +8,28 @@ class TimeCalculate {
     private timeViewed: any;
     private stopTime: any;
     private startTime: number=0;
+    private customIcon: any[] = new Array(1);
 
     constructor() {	
         this.timeOrphan = new Date();	
         this.totalTime = 0; // in seconds	
         this.URL = document.URL;
+        this.customIcon[0]=(chrome.extension.getURL('../icons/save.png'));
+        this.onPageLoad();
     }	
+
+    onPageLoad() {
+        var saveIconElement: any = document.createElement('img');
+        saveIconElement.src = this.customIcon[0];
+        // saveIconElement.setAttribute("src", this.customIcon[0]);
+        // saveIconElement.setAttribute("width", "30px");
+        // saveIconElement.setAttribute("height", "30px");
+        // saveIconElement.setAttribute("alt", "Save Current Article");
+        saveIconElement.style.position = 'absolute';
+        saveIconElement.style.right = '40px';
+        saveIconElement.style.bottom = '50px';
+        document.body.appendChild(saveIconElement);
+    }
 
     startTimerCounter() {	
         this.startTime = this.timeOrphan;	
