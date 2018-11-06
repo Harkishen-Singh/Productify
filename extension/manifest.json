@@ -6,6 +6,7 @@
     "browser_action": {
         "default_popup":"templates/front_page.html"
     },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "icons": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",

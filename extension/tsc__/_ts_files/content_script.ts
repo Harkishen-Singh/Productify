@@ -104,6 +104,7 @@ let object = new TimeCalculate();
 window.onload = function() {
     object.startTimerCounter();
     object.addCurrentUrlAfterCheckMemory();
+    object.savedArticles();
 }
 
 

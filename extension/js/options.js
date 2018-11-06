@@ -1,4 +1,3 @@
-
 chrome.storage.local.get('mainMemory', (details) => {
     let allUrls = details.mainMemory.allUrls, 
         allURlsNode = '',allBlockedNodes = '',
@@ -14,6 +13,15 @@ chrome.storage.local.get('mainMemory', (details) => {
         // button.addEventListener('click', )
         
     }
+    // if (allURlsNode.length === 0) {
+    //     console.log('no urls viewd')
+    //     let x = document.getElementById('all_urls');
+    //     x.innerHTML = 'No URLs viewed yet.';
+    //     x.style.border = '2px solid black';
+    //     x.style.borderRadius = '5px';
+    //     x.style.height = '400px';
+    // }
+    
     document.getElementById('all_urls_view').innerHTML=allURlsNode;
     for(let i =1; i< allUrls.length; i++) {
         document.getElementById(allUrls[i].url).addEventListener('click',addBlocking, false)
@@ -28,8 +36,20 @@ chrome.storage.local.get('mainMemory', (details) => {
         allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
             '<div class="col-md-10" style="font-size:15px;"> <b> '+ blockedWebsites[i] + ' </b></div>' + 
             '<div class="col-md-2"><button id="'+blockedWebsites[i] +'" class="btn btn-success">Allow</button></div></div>';
+        // let button = document.createElement('button');
+        // button.className = 'btn btn-danger'
+        // button.addEventListener('click', )
         
     }
+    // if (blockedWebsites.length === 1 && blockedWebsites[0] === 'https://www.defaultsomethingss.com/*' ) {
+    //     console.log('black working ***')
+    //     let x = document.getElementById('blocked_urls');
+    //     x.innerHTML = 'No Blocked Websites yet.';
+    //     x.style.border = '2px solid black';
+    //     x.style.borderRadius = '5px';
+    //     x.style.height = '400px';
+    // }
+        // document.getElementById('blocked_urls_view').innerHTML='<h3>No URLs Blocked yet.</h3>';
     document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
     for(let i =0; i< blockedWebsites.length; i++) {
         if(!(blockedWebsites[i] === 'https://www.defaultsomethingss.com/*'))
@@ -88,6 +108,9 @@ function removeBlocking(element) {
         }
     })
 }
+
+
+
 // article view below
 
 function articleViewHandler() {
@@ -97,7 +120,6 @@ function articleViewHandler() {
         for(let i=0; i< totalArticles; i++) {
             let x = document.createElement('p');
             x.id = allSavedArticles[i].URL;
-
             x.innerHTML = allSavedArticles[i].URL + '<br>';
             x.addEventListener('click', assignActionsArticles, false )
             document.getElementById('articleTitle').appendChild(x)
@@ -112,39 +134,58 @@ function assignActionsArticles(el) {
         let allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for(let j=0; j<allSavedArticles2.length; j++) {
             if (allSavedArticles2[j].URL === this.id) {
-                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date.substring(0,24)+' hours<br><i>From : '+ allSavedArticles2[j].URL+'</i><br><hr>' 
-                document.getElementById('articleBody').style.width = '100%';
-                + allSavedArticles2[j].message;
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br>' + allSavedArticles2[j].message;
                 break;
             }
         }
     });
 }
 
-function newProductivity() {
-    chrome.storage.local.get('mainMemory', (details) => {
-        let Urls = details.mainMemory.blockedWebsites;
-        let len = Urls.length;
-        let words = details.mainMemory.wordId;
-        document.getElementById('blocked-num').innerHTML = len - 1;
-        document.getElementById('dictionary-num').innerHTML = words;
-        let url = document.URL;
-        console.warn(url)
+
+// function newProductivity() {
+//     chrome.storage.local.get('mainMemory', (details) => {
+//         let Urls = details.mainMemory.blockedWebsites;
+//         let len = Urls.length;
+//         let words = details.mainMemory.wordId;
+//         // document.getElementById('blocked-num').innerHTML = len - 1;
+//         // document.getElementById('dictionary-num').innerHTML = words;
+//         let url = document.URL;
+//         console.warn(url)
         
-        chrome.storage.local.get('savedArticlesCodeZero', (details2) => {
-            let length = details2.savedArticlesCodeZero.savedArticles.length;
-            document.getElementById('articles2').innerHTML = length;
-            console.log('url '+(Urls.length-1)+' length '+length)
-            var prod = 0
-            prod = Math.floor((((parseInt(Urls.length-1)/parseInt(length+1))) * parseInt(words +1) )*100) ;
-            console.log('prod is '+prod)
-            document.getElementById('normalS').style.width = prod+'px';
-            document.getElementById('thiss').innerText = prod;
+//         chrome.storage.local.get('savedArticlesCodeZero', (details2) => {
+//             let length = details2.savedArticlesCodeZero.savedArticles.length;
+//             document.getElementById('articles2').innerHTML = length;
+//             console.log('url '+(Urls.length-1)+' length '+length)
+//             var prod = 0
+//             prod = Math.floor((((parseInt(Urls.length-1)/parseInt(length+1))) * parseInt(words +1) )*100) ;
+//             console.log('prod is '+prod)
+//             document.getElementById('normalS').style.width = prod+'px';
+//             document.getElementById('thiss').innerText = prod;
+//             // document.getElementById('unique').style.width = prod + 'px'
+//             // let ele = document.createElement('div');
+//             // let a1 = document.createAttribute('role')
+//             // a1.value =  'progressbar';
+//             // let a2 = document.createAttribute('aria-valuenow')
+//             // a2.value = prod
+//             // let a3 = document.createAttribute('aria-valuemin')
+//             // a3.value =  '0';
+//             // let a4 = document.createAttribute('aria-valuemax')
+//             // a4.value =  '100';
+//             // document.getElementById('adder').removeChild(ele);
+//             // ele.setAttributeNode(a1)
+//             // ele.setAttributeNode(a2)
+//             // ele.setAttributeNode(a3)
+//             // ele.setAttributeNode(a4)
+//             // ele.classList.add('progress-bar')
+//             // ele.classList.add('progress-bar-striped')
+//             // ele.classList.add('active')
+//             // ele.style.width = prod + 'px';
+//             // document.getElementById('adder').appendChild(ele);
 
 
-        })
 
-    });
-}
-setInterval(newProductivity(), 2000);
+//         })
 
+//     });
+// }
+// setInterval(newProductivity(), 2000);
