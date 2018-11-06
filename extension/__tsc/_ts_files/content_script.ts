@@ -1,4 +1,3 @@
-
 let currentUrl = document.URL;
 console.log('current url '+currentUrl)
 function addCurrentUrlAfterCheckMemory() {
@@ -18,12 +17,10 @@ function addCurrentUrlAfterCheckMemory() {
 
         if (! (present)) {
                 allUrls.push({url:currentUrl, time:''});
-           
-            
-            details.mainMemory.allUrls = allUrls;
-            console.log('updated urls below')
-            console.log(allUrls)
-            chrome.storage.local.set({'mainMemory': details.mainMemory})
+                details.mainMemory.allUrls = allUrls;
+                console.log('updated urls below')
+                console.log(allUrls)
+                chrome.storage.local.set({'mainMemory': details.mainMemory})
         }
     });
 } addCurrentUrlAfterCheckMemory();
@@ -31,12 +28,14 @@ function addCurrentUrlAfterCheckMemory() {
 // articles
 
 function savedArticles() {
-    var DOMs = document.querySelectorAll('h, p');
+    var DOMs = document.querySelectorAll('body');
+    var articleSize = DOMs.length;
+    console.warn('Current Article size : '+articleSize)
     console.warn('DOMs below')
-    var message = '', date = Date(Date.now())
+    var message:String = '', date:any = Date();
 
     for(let i=0; i< DOMs.length; i++) {
-        message += DOMs[i].innerText;
+        message += DOMs[i].innerHTML;
     }
     console.log('content page is below')
     console.log(message)
@@ -61,17 +60,17 @@ function savedArticles() {
     })
 } savedArticles();
 
-
-
-
-
 class TimeCalculate {	
+    private timeOrphan: any;
+    private totalTime: number;
+    private URL: string;
+    private timeViewed: any;
+    private stopTime: any;
+    private startTime: number=0;
     constructor() {	
-        this.startTime = '';	
-        this.stopTime = '';	
         this.timeOrphan = new Date();	
         this.totalTime = 0; // in seconds	
-        this.URL = document.URL;	
+        this.URL = document.URL;
     }	
     startTimerCounter() {	
         this.startTime = this.timeOrphan;	
@@ -94,7 +93,10 @@ class TimeCalculate {
         console.log('Time Watched : '+this.timeViewed)	
     }	
 }	
- let object = new TimeCalculate();	
-window.onload = object.startTimerCounter();	
+
+let object = new TimeCalculate();	
+window.onload = function() {
+    object.startTimerCounter();
+}
 
 
