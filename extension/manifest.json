@@ -23,6 +23,9 @@
             "js":["js/jquery.js","js/content_script.js"]
         }
     ],
+    "web_accessible_resources": [
+        "icons/save.png"
+      ],
     "background":{
         "scripts":["js/background.js"],
         "persistent":true

@@ -14,7 +14,7 @@ class TimeCalculate {
         this.timeOrphan = new Date();	
         this.totalTime = 0; // in seconds	
         this.URL = document.URL;
-        this.customIcon[0]=(chrome.extension.getURL('../icons/save.png'));
+        this.customIcon[0]=(chrome.extension.getURL('icons/save.png'));
         this.onPageLoad();
     }	
 
@@ -22,12 +22,12 @@ class TimeCalculate {
         var saveIconElement: any = document.createElement('img');
         saveIconElement.src = this.customIcon[0];
         // saveIconElement.setAttribute("src", this.customIcon[0]);
-        // saveIconElement.setAttribute("width", "30px");
-        // saveIconElement.setAttribute("height", "30px");
-        // saveIconElement.setAttribute("alt", "Save Current Article");
-        saveIconElement.style.position = 'absolute';
-        saveIconElement.style.right = '40px';
-        saveIconElement.style.bottom = '50px';
+        saveIconElement.setAttribute("alt", "Save Current Article");
+        saveIconElement.style.position = 'fixed';
+        saveIconElement.style.right = '3%';
+        saveIconElement.style.height = '50px';
+        saveIconElement.style.width = '50px';
+        saveIconElement.style.bottom = '3%';
         document.body.appendChild(saveIconElement);
     }
 
