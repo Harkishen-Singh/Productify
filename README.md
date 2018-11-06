@@ -1,5 +1,4 @@
-# CodeZero
-<b>PRODUCTIFY</b><br><br>
+#<b>PRODUCTIFY</b><br><br>
 What is Productify?
 Productify is a Chrome Extension that aims to increase the efficiency of an everyday user on the internet.
 In this modern age where internet addiction has become rampant, it is productify that comes to your rescue. 
