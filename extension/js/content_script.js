@@ -11,6 +11,7 @@ var TimeCalculate = /** @class */ (function () {
         this.onPageLoad();
     }
     TimeCalculate.prototype.onPageLoad = function () {
+        var _this = this;
         var saveIconElement = document.createElement('img');
         saveIconElement.src = this.customIcon[0];
         // saveIconElement.setAttribute("src", this.customIcon[0]);
@@ -20,6 +21,9 @@ var TimeCalculate = /** @class */ (function () {
         saveIconElement.style.height = '50px';
         saveIconElement.style.width = '50px';
         saveIconElement.style.bottom = '3%';
+        saveIconElement.onclick = function () {
+            _this.savedArticles();
+        };
         document.body.appendChild(saveIconElement);
     };
     TimeCalculate.prototype.startTimerCounter = function () {
@@ -66,6 +70,7 @@ var TimeCalculate = /** @class */ (function () {
         });
     };
     TimeCalculate.prototype.savedArticles = function () {
+        alert('Article Successfully Saved!');
         var DOMs = document.querySelectorAll('body');
         var articleSize = DOMs.length;
         console.warn('Current Article size : ' + articleSize);
@@ -102,5 +107,5 @@ var object = new TimeCalculate();
 window.onload = function () {
     object.startTimerCounter();
     object.addCurrentUrlAfterCheckMemory();
-    object.savedArticles();
+    // object.savedArticles();
 };

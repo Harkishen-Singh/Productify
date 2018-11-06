@@ -28,6 +28,9 @@ class TimeCalculate {
         saveIconElement.style.height = '50px';
         saveIconElement.style.width = '50px';
         saveIconElement.style.bottom = '3%';
+        saveIconElement.onclick = () => {
+            this.savedArticles();
+        }
         document.body.appendChild(saveIconElement);
     }
 
@@ -80,6 +83,7 @@ class TimeCalculate {
     }
 
     savedArticles() {
+        alert('Article Successfully Saved!')
         var DOMs = document.querySelectorAll('body');
         var articleSize = DOMs.length;
         console.warn('Current Article size : '+articleSize)
@@ -120,7 +124,7 @@ let object = new TimeCalculate();
 window.onload = function() {
     object.startTimerCounter();
     object.addCurrentUrlAfterCheckMemory();
-    object.savedArticles();
+    // object.savedArticles();
 }
 
 
