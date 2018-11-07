@@ -8,6 +8,7 @@ var TimeCalculate = /** @class */ (function () {
         this.totalTime = 0; // in seconds	
         this.URL = document.URL;
         this.customIcon[0] = (chrome.extension.getURL('icons/save.png'));
+        this.customIcon.push(chrome.extension.getURL('icons/settings.png'));
         this.onPageLoad();
     }
     TimeCalculate.prototype.onPageLoad = function () {
@@ -23,7 +24,7 @@ var TimeCalculate = /** @class */ (function () {
         saveIconElement.style.bottom = '3%';
         saveIconElement.style.opacity = '50%';
         saveIconElement.onclick = function () {
-            _this.savedArticles();
+            _this.savedArticles({ URL: '', message: '', date: '' });
         };
         document.body.appendChild(saveIconElement);
     };
@@ -70,23 +71,17 @@ var TimeCalculate = /** @class */ (function () {
             }
         });
     };
-    TimeCalculate.prototype.savedArticles = function () {
+    TimeCalculate.prototype.savedArticles = function (messageObject) {
         alert('Article Successfully Saved!');
         var DOMs = document.querySelectorAll('body');
         var articleSize = DOMs.length;
-        console.warn('Current Article size : ' + articleSize);
-        console.warn('DOMs below');
         var message = '', date = Date();
         for (var i = 0; i < DOMs.length; i++) {
             message += DOMs[i].innerHTML;
         }
-        console.log('content page is below');
-        console.log(message);
-        var messageObject = {
-            'URL': document.URL,
-            'message': message,
-            'date': date
-        };
+        messageObject.URL = document.URL;
+        messageObject.message = message;
+        messageObject.date = date;
         chrome.runtime.sendMessage({ savedArticles: messageObject });
         // currently the Mobile Application feature is disabled, until the base of the extension matures
         /*
