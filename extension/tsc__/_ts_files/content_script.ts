@@ -1,6 +1,12 @@
 // JS injections
 
-class TimeCalculate {	
+interface articleSaveDeclaration {
+    URL: string;
+    message: string;
+    date: string;
+}
+
+class TimeCalculate  {	
 
     private timeOrphan: any;
     private totalTime: number;
@@ -31,7 +37,7 @@ class TimeCalculate {
         saveIconElement.style.bottom = '3%';
         saveIconElement.style.opacity = '50%';
         saveIconElement.onclick = () => {
-            this.savedArticles();
+            this.savedArticles({URL:'', message:'', date: ''});
         }
         document.body.appendChild(saveIconElement);
     }
@@ -84,27 +90,18 @@ class TimeCalculate {
         });
     }
 
-    savedArticles() {
+    savedArticles(messageObject: articleSaveDeclaration) {
         alert('Article Successfully Saved!')
         var DOMs = document.querySelectorAll('body');
         var articleSize = DOMs.length;
-        console.warn('Current Article size : '+articleSize)
-        console.warn('DOMs below')
-        var message:String = '', date:any = Date();
+        var message:string = '', date:any = Date();
     
         for(let i=0; i< DOMs.length; i++) {
             message += DOMs[i].innerHTML;
         }
-        console.log('content page is below')
-        console.log(message)
-    
-    
-        var messageObject = {
-            'URL': document.URL,
-            'message':message,
-            'date': date
-        }
-    
+        messageObject.URL = document.URL;
+        messageObject.message = message;
+        messageObject.date = date;
         chrome.runtime.sendMessage({savedArticles: messageObject})
         // currently the Mobile Application feature is disabled, until the base of the extension matures
         /*  
