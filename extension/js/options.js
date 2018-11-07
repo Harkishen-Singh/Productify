@@ -1,12 +1,23 @@
 "use strict";
 chrome.storage.local.get('mainMemory', function (details) {
-    var allUrls = details.mainMemory.allUrls, allURlsNode = '', allBlockedNodes = '', blockedWebsites = details.mainMemory.blockedWebsites;
+    var allUrls = details.mainMemory.allUrls, allURlsNode = '', allBlockedNodes = '', blockedWebsites = details.mainMemory.blockedWebsites,
+    urltrim='';
     console.warn(allUrls);
     for (var i = 1; i < allUrls.length; i++) {
-        allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;overflow-x:auto;max-width:90%;">' +
+        
+        if(allUrls[i].url.length >= 86){
+            urltrim = allUrls[i].url.substring(0,86) + "..." ;
+        allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;max-width:90%;">' +
             '<div class="col-md-10" style="font-size:15px;"><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:5px;" >'
-            + parseInt(allUrls[i].time) / 60 + ' mins</span> <b> ' + allUrls[i].url + ' </b></div>' +
-            '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger">Block</button></div></div>';
+            + parseInt(allUrls[i].time) / 60 + ' mins</span> <p style="font-weight:bold;">' + urltrim + '</p></div>' +
+            '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="position:static;margin-top:2px;margin-right:2px;">Block</button></div></div>';
+        }
+        else{
+            allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;max-width:90%;">' +
+                '<div class="col-md-10" style="font-size:15px;"><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:5px;" >'
+                + parseInt(allUrls[i].time) / 60 + ' mins</span> <p style="font-weight:bold;">' + allUrls[i].url + '</p></div>' +
+                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="position:static;margin-top:2px;margin-right:2px;">Block</button></div></div>';
+        }
     }
     document.getElementById('all_urls_view').innerHTML = allURlsNode;
     for (var i = 1; i < allUrls.length; i++) {

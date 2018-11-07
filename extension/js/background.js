@@ -6,9 +6,11 @@ let initialiseMainMemory = {
         wordId: 0,
         articleListURL:[]
 };
+
 let savedArticles2 = {
     savedArticles :[]
 }
+
 function setup() {
     chrome.storage.local.set({'mainMemory': initialiseMainMemory})
     chrome.storage.local.set({'savedArticlesCodeZero': savedArticles2})
