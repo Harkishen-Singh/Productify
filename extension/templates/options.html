@@ -24,7 +24,8 @@
 <body>
 	<h3 class="text-center" style="background-color: rgb(20, 62, 116);color:floralwhite;padding:50px;margin:0 !important;">Productify - Control and Diversify the Dependence on the web</h3>
 
-	<!-- <div class="container">
+	<div style="margin:3%;">
+		<!-- <div class="container">
 		<div class="col-md-12 text-center">
 			<h5>Your Productivity Score: <span id="thiss"></span> </h5>
             <div class="progress" id="adder">
@@ -34,7 +35,7 @@
 		</div>
 	</div> -->
 	<hr>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row"><h3>Web View</h3>
 			<hr>
 			<div class="col-md-6" id="all_urls">
@@ -87,11 +88,14 @@
         <div class="row">
             <h3>Article View</h3> <p><i>Below are the list of articles you have come across since installation</i></p>
             <br>
-            <div class="col-md-4" style="cursor:pointer;border:1px black solid;height:600px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;overflow-y:auto">
+            <div class="col-md-3" style="cursor:pointer;border:1px black solid;height:800px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;overflow-y:auto">
                 <div id="articleTitle" style="overflow-y:auto"></div>
             </div>
-            <div class="col-md-8" style="border:1px black solid;height:600px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;overflow-y:auto">
-                <div id="articleBody" style="overflow-y:auto"></div>
+			<div class="col-md-9" style="border:1px black solid;height:800px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;overflow-y:auto">
+				<div class="row">
+					<div id="articleBody" style="overflow-y:auto; width: 100%;"></div>
+				</div>
+                
             </div>
         </div>
         <br>
@@ -104,6 +108,7 @@
             </div>
         </div>
         <br>
+	</div>
 	</div>
 	<footer style="text-align:center;padding:20px;background-color:rgb(23, 57, 131);color:white;font-weight:bold;">Designed by Team CodeZero @HackaBIT, BIT Mesra</footer>
 

@@ -15,6 +15,7 @@ class TimeCalculate {
         this.totalTime = 0; // in seconds	
         this.URL = document.URL;
         this.customIcon[0]=(chrome.extension.getURL('icons/save.png'));
+        this.customIcon.push(chrome.extension.getURL('icons/settings.png'));
         this.onPageLoad();
     }	
 

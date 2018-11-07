@@ -93,14 +93,23 @@ function removeBlocking(this: HTMLElement, element: any) {
 function articleViewHandler() {
     chrome.storage.local.get('savedArticlesCodeZero', (details) => {
         let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+        let orderedList = document.createElement('ol');
         let totalArticles = allSavedArticles.length;
+        // for(let i=0; i< totalArticles; i++) {
+        //     let x = document.createElement('p');
+        //     x.id = allSavedArticles[i].URL;
+        //     x.innerHTML = allSavedArticles[i].URL + '<br>';
+        //     x.addEventListener('click', assignActionsArticles, false )
+        //     document.getElementById('articleTitle').appendChild(x)
+        // }
         for(let i=0; i< totalArticles; i++) {
-            let x = document.createElement('p');
-            x.id = allSavedArticles[i].URL;
-            x.innerHTML = allSavedArticles[i].URL + '<br>';
-            x.addEventListener('click', assignActionsArticles, false )
-            document.getElementById('articleTitle').appendChild(x)
+            let List = document.createElement('li');
+            List.id = allSavedArticles[i].URL;
+            List.innerHTML = allSavedArticles[i].URL + '<br>';
+            List.addEventListener('click', assignActionsArticles, false )
+            orderedList.appendChild(List);
         }
+        document.getElementById('articleTitle').appendChild(orderedList);
     })
 } articleViewHandler();
 

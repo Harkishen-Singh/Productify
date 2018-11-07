@@ -81,14 +81,23 @@ function removeBlocking(element) {
 function articleViewHandler() {
     chrome.storage.local.get('savedArticlesCodeZero', function (details) {
         var allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+        var orderedList = document.createElement('ol');
         var totalArticles = allSavedArticles.length;
+        // for(let i=0; i< totalArticles; i++) {
+        //     let x = document.createElement('p');
+        //     x.id = allSavedArticles[i].URL;
+        //     x.innerHTML = allSavedArticles[i].URL + '<br>';
+        //     x.addEventListener('click', assignActionsArticles, false )
+        //     document.getElementById('articleTitle').appendChild(x)
+        // }
         for (var i = 0; i < totalArticles; i++) {
-            var x = document.createElement('p');
-            x.id = allSavedArticles[i].URL;
-            x.innerHTML = allSavedArticles[i].URL + '<br>';
-            x.addEventListener('click', assignActionsArticles, false);
-            document.getElementById('articleTitle').appendChild(x);
+            var List = document.createElement('li');
+            List.id = allSavedArticles[i].URL;
+            List.innerHTML = allSavedArticles[i].URL + '<br>';
+            List.addEventListener('click', assignActionsArticles, false);
+            orderedList.appendChild(List);
         }
+        document.getElementById('articleTitle').appendChild(orderedList);
     });
 }
 articleViewHandler();
