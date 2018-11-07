@@ -24,10 +24,11 @@ class TimeCalculate {
         // saveIconElement.setAttribute("src", this.customIcon[0]);
         saveIconElement.setAttribute("alt", "Save Current Article");
         saveIconElement.style.position = 'fixed';
-        saveIconElement.style.right = '3%';
+        saveIconElement.style.left = '3%';
         saveIconElement.style.height = '50px';
         saveIconElement.style.width = '50px';
         saveIconElement.style.bottom = '3%';
+        saveIconElement.style.opacity = '50%';
         saveIconElement.onclick = () => {
             this.savedArticles();
         }
