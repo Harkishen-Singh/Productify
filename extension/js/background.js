@@ -121,7 +121,7 @@ function updateFilters(urls) {
       var blockedUrls = [];
       chrome.storage.local.get('mainMemory', (details) => {
           for (var i=0; i<details.mainMemory.blockedWebsites.length; i++){
-              blockedUrls.push(details.mainMemory.blockedWebsites.url);
+              blockedUrls.push(details.mainMemory.blockedWebsites[i].url);
           }
         // blockedUrls = details.mainMemory.blockedWebsites;
         console.log('list of blocked urls below-- background')
