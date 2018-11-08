@@ -34,18 +34,10 @@ chrome.storage.local.get('mainMemory', function (details) {
         for (var i = 0; i < blockedWebsites.length; i++) {
             if (blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*')
                 continue;
-
-                if (blockedWebsites[i].title.length > 48){
-                    allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
-                        '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title.substring(0,47)+'....' + ' </b></div>' +
-                        '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';
-                    }
-                else{
-                    allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
-                        '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title + ' </b></div>' +
-                        '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';    
-                    }
-
+            allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
+                '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';
+        }
         document.getElementById('blocked_urls_view').innerHTML = allBlockedNodes;
         for (var i = 0; i < blockedWebsites.length; i++) {
             if (!(blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*'))
