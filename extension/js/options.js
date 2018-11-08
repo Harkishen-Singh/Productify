@@ -4,10 +4,20 @@ chrome.storage.local.get('mainMemory', function (details) {
     console.warn(allUrls);
     if (!(allUrls.length === 1 && allUrls[0].url === "https://www.defaultsomethingss.com/*")) {
         for (var i = 1; i < allUrls.length; i++) {
-            allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;overflow-x:auto;max-width:90%;">' +
-                '<div class="col-md-10" style="font-size:15px;"><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:5px;" >'
-                + parseInt(allUrls[i].time) / 60 + ' mins</span> <b> ' + allUrls[i].url + ' </b></div>' +
-                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger">Block</button></div></div>';
+
+            if (allUrls[i].title.length > 48){
+
+            allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
+                '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px;" >'
+                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title.substring(0,47)+'....' + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
+            }
+            else{
+                allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
+                '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px" >'
+                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
+            }
         }
         document.getElementById('all_urls_view').innerHTML = allURlsNode;
         for (var i = 1; i < allUrls.length; i++) {
@@ -22,16 +32,16 @@ chrome.storage.local.get('mainMemory', function (details) {
     if (!(blockedWebsites.length === 1 && blockedWebsites[0] === 'https://www.defaultsomethingss.com/*')) {
         console.warn(blockedWebsites);
         for (var i = 0; i < blockedWebsites.length; i++) {
-            if (blockedWebsites[i] === 'https://www.defaultsomethingss.com/*')
+            if (blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*')
                 continue;
-            allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-                '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i] + ' </b></div>' +
-                '<div class="col-md-2"><button id="' + blockedWebsites[i] + '" class="btn btn-success">Allow</button></div></div>';
+            allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
+                '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';
         }
         document.getElementById('blocked_urls_view').innerHTML = allBlockedNodes;
         for (var i = 0; i < blockedWebsites.length; i++) {
-            if (!(blockedWebsites[i] === 'https://www.defaultsomethingss.com/*'))
-                document.getElementById(blockedWebsites[i]).addEventListener('click', removeBlocking, false);
+            if (!(blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*'))
+                document.getElementById(blockedWebsites[i].url).addEventListener('click', removeBlocking, false);
         }
     }
     else {
@@ -47,43 +57,52 @@ chrome.storage.local.get('mainMemory', function (details) {
 });
 function addBlocking(element) {
     var _this = this;
+    var title ='';
     console.log('thisss' + this.id);
     console.log(this.id);
     chrome.storage.local.get('mainMemory', function (details) {
         if (!(_this.id in details.mainMemory.blockedWebsites)) {
-            details.mainMemory.blockedWebsites.push(_this.id);
+            
             var allURls = details.mainMemory.allUrls;
             for (var j = 0; j < allURls.length; j++) {
                 if (allURls[j].url === _this.id) {
                     console.warn('same URL found. deleting from allowed list');
+                    title = allURls[j].title;
+                    console.log(title);
                     allURls.splice(j, 1);
                 }
             }
+            console.log('x');
+            details.mainMemory.blockedWebsites.push({url:_this.id, title:title});
+
             chrome.storage.local.set({ 'mainMemory': details.mainMemory });
-            alert('Added ' + _this.id + ' to List of Blocked websites');
+            alert('Added ' + title + ' to List of Blocked websites');
             window.location.reload();
         }
     });
 }
 function removeBlocking(element) {
     var _this = this;
+    var title = '';
     console.log('removeBLocking invoked' + this.id);
     console.log(this.id);
     chrome.storage.local.get('mainMemory', function (details) {
         if (!(_this.id in details.mainMemory.blockedWebsites)) {
             var blockedWebsites = details.mainMemory.blockedWebsites;
             for (var j = 0; j < blockedWebsites.length; j++) {
-                if (blockedWebsites[j] === _this.id) {
+                if (blockedWebsites[j].url === _this.id) {
                     console.warn('***deleting from blocked list');
                     console.warn('j is ' + j);
+                    title = details.mainMemory.blockedWebsites[j].title;
                     details.mainMemory.blockedWebsites.splice(j, 1);
                     console.warn(details.mainMemory.blockedWebsites);
+                    
                 }
             }
-            details.mainMemory.allUrls.push({ url: _this.id, time: '' });
+            details.mainMemory.allUrls.push({ url: _this.id, time: '',title:title });
             // details.mainMemory.blockedWebsites = blockedWebsites;
             chrome.storage.local.set({ 'mainMemory': details.mainMemory });
-            alert('Removed ' + _this.id + ' from List of Blocked websites');
+            alert('Removed ' + title + ' from List of Blocked websites');
             window.location.reload();
         }
     });
@@ -101,7 +120,7 @@ function articleViewHandler() {
         //     x.addEventListener('click', assignActionsArticles, false )
         //     document.getElementById('articleTitle').appendChild(x)
         // }
-        if (totalArticles) {
+        if (totalArticles){
             for (var i = 0; i < totalArticles; i++) {
                 var List = document.createElement('li');
                 List.id = allSavedArticles[i].URL;
@@ -111,7 +130,7 @@ function articleViewHandler() {
             }
             document.getElementById('articleTitle').appendChild(orderedList);
         }
-        else {
+        else{
             var element = document.createElement('p');
             element.innerHTML = 'No articles saved Yet.';
             document.getElementById('articleTitle').appendChild(element);
@@ -120,6 +139,7 @@ function articleViewHandler() {
         }
     });
 }
+
 articleViewHandler();
 function assignActionsArticles(el) {
     var _this = this;
