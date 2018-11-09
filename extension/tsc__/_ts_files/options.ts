@@ -5,12 +5,20 @@ chrome.storage.local.get('mainMemory', (details) => {
     console.warn(allUrls)
 
     if (!(allUrls.length===1 && allUrls[0].url==="https://www.defaultsomethingss.com/*")) {
-        for(let i =1; i< allUrls.length; i++) {
-            allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;overflow-x:auto;max-width:90%;">' +
-                '<div class="col-md-10" style="font-size:15px;"><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:5px;" >'
-                +parseInt(allUrls[i].time)/60+' mins</span> <b> '+ allUrls[i].url + ' </b></div>' + 
-                '<div class="col-md-2"><button id="'+allUrls[i].url +'" class="btn btn-danger">Block</button></div></div>';
-            
+        for (var i = 1; i < allUrls.length; i++) {
+            if (allUrls[i].title.length > 48){
+
+                allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
+                '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px;" >'
+                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title.substring(0,47)+'....' + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
+            }
+            else{
+                allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
+                '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px" >'
+                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title + ' </b></div>' +
+                '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
+            }
         }
         
         document.getElementById('all_urls_view').innerHTML=allURlsNode;
@@ -28,17 +36,17 @@ chrome.storage.local.get('mainMemory', (details) => {
     if (!(blockedWebsites.length===1 && blockedWebsites[0]==='https://www.defaultsomethingss.com/*')) {
         console.warn(blockedWebsites)
         for(let i =0; i< blockedWebsites.length; i++) {
-            if (blockedWebsites[i] === 'https://www.defaultsomethingss.com/*') 
+            if (blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*') 
                 continue
             allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-                '<div class="col-md-10" style="font-size:15px;"> <b> '+ blockedWebsites[i] + ' </b></div>' + 
-                '<div class="col-md-2"><button id="'+blockedWebsites[i] +'" class="btn btn-success">Allow</button></div></div>';
+                '<div class="col-md-10" style="font-size:15px;"> <b> '+ blockedWebsites[i].title + ' </b></div>' + 
+                '<div class="col-md-2"><button id="'+blockedWebsites[i].url +'" class="btn btn-success">Allow</button></div></div>';
             
         }
         document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
         for(let i =0; i< blockedWebsites.length; i++) {
-            if(!(blockedWebsites[i] === 'https://www.defaultsomethingss.com/*'))
-            document.getElementById(blockedWebsites[i]).addEventListener('click',removeBlocking, false)
+            if(!(blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*'))
+            document.getElementById(blockedWebsites[i].url).addEventListener('click',removeBlocking, false)
         }
     } else {
         document.getElementById('blocked_urls_view').innerHTML= 'No websites Blocked.';
@@ -56,18 +64,22 @@ chrome.storage.local.get('mainMemory', (details) => {
 function addBlocking( this: HTMLElement, element: any) {
     console.log('thisss' + this.id)
     console.log(this.id)
+    let title = '';
     chrome.storage.local.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
-            details.mainMemory.blockedWebsites.push(this.id);
+            
             let allURls = details.mainMemory.allUrls;
             for(let j=0;j<allURls.length; j++) {
                 if(allURls[j].url===this.id) {
                     console.warn('same URL found. deleting from allowed list')
+                    title = allURls[j].title;
+                    console.log(title);
                     allURls.splice(j,1)
                 }
             }
+            details.mainMemory.blockedWebsites.push({url:this.id, title:title});
             chrome.storage.local.set({'mainMemory': details.mainMemory})
-            alert('Added '+this.id+' to List of Blocked websites');
+            alert('Added '+title+' to List of Blocked websites');
             window.location.reload();
         }
     })
@@ -76,18 +88,20 @@ function addBlocking( this: HTMLElement, element: any) {
 function removeBlocking(this: HTMLElement, element: any) {
     console.log('removeBLocking invoked' + this.id)
     console.log(this.id)
+    let title = '';
     chrome.storage.local.get('mainMemory', (details) => {
         if (! (this.id in details.mainMemory.blockedWebsites)) {
             let blockedWebsites = details.mainMemory.blockedWebsites;
             for(let j=0;j<blockedWebsites.length; j++) {
-                if(blockedWebsites[j]===this.id ) {
+                if(blockedWebsites[j].url===this.id ) {
                     console.warn('***deleting from blocked list')
                     console.warn('j is '+j)
+                    title = details.mainMemory.blockedWebsites[j].title;
                     details.mainMemory.blockedWebsites.splice(j,1)
                     console.warn(details.mainMemory.blockedWebsites)
                 }
             }
-            details.mainMemory.allUrls.push({url:this.id, time:''});
+            details.mainMemory.allUrls.push({url:this.id, time:'',title:title});
             // details.mainMemory.blockedWebsites = blockedWebsites;
             chrome.storage.local.set({'mainMemory': details.mainMemory})
             alert('Removed '+this.id+' from List of Blocked websites');

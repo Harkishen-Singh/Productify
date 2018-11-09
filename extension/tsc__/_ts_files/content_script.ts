@@ -68,6 +68,7 @@ class TimeCalculate  {
     addCurrentUrlAfterCheckMemory() {
         chrome.storage.local.get('mainMemory', (details) => {
             let allUrls = details.mainMemory.allUrls;
+            let title = '';
             console.warn('allUrls below')
             console.warn(allUrls);
             
@@ -81,7 +82,8 @@ class TimeCalculate  {
             }
     
             if (! (present)) {
-                    allUrls.push({url:this.URL, time:''});
+                    title = document.title;
+                    allUrls.push({url:this.URL, time:'', title:title});
                     details.mainMemory.allUrls = allUrls;
                     console.log('updated urls below')
                     console.log(allUrls)

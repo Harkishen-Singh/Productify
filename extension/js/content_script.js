@@ -65,8 +65,7 @@ var TimeCalculate = /** @class */ (function () {
             }
             if (!(present)) {
                 title = document.title;
-                // console.log(title);
-                allUrls.push({ url: _this.URL, time: '',title:title});
+                allUrls.push({ url: _this.URL, time: '', title: title });
                 details.mainMemory.allUrls = allUrls;
                 console.log('updated urls below');
                 console.log(allUrls);
