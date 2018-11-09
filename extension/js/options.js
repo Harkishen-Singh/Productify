@@ -7,22 +7,24 @@ chrome.storage.local.get('mainMemory', function (details) {
             timeused = allUrls[i].time;
             //to display time in secs,mins and hours
             if (timeused < 60) { //timeused is in secconds
-                p_time = timeused + "secs";
+                p_time = timeused + " secs";
             }
             else if (timeused >= 3600) {
-                if (timeused / 3600 > 1) {
+                if (Math.floor(timeused / 3600) > 1) {
                     // x= timeused/ 3600;
-                    p_time = Math.floor(timeused / 3600) + "hrs" + (timeused / 3600 - Math.floor(timeused / 3600)) * 60 + "mins";
+                    p_time = Math.floor(timeused / 3600) + "hrs " + Math.floor((timeused / 3600 - Math.floor(timeused / 3600)) * 60) + "mins";
                 }
                 else {
-                    p_time = Math.floor(timeused / 3600) + "hr" + (timeused / 3600 - Math.floor(timeused / 3600)) * 60 + "mins";
+                    p_time = Math.floor(timeused / 3600) + "hr " + Math.floor((timeused / 3600 - Math.floor(timeused / 3600)) * 60) + "mins";
                 }
             }
             else {
-                p_time = timeused / 60 + "mins";
+                p_time = timeused / 60 + " mins";
             }
-            if (p_time === "secs")
+            console.log(p_time);
+            if (p_time === " secs")
                 p_time = "0 secs";
+            console.log(p_time);
             if (allUrls[i].title.length > 48) {
                 allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
                     '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px;" >'
