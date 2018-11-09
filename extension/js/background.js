@@ -1,7 +1,7 @@
 // initialising the chrome storage
 let initialiseMainMemory = {
-        blockedWebsites:["https://www.defaultsomethingss.com/*"],
-        allUrls:[{url: "https://www.defaultsomethingss.com/*", time: '0'}],
+        blockedWebsites:[{url: "https://www.defaultsomethingss.com/*",title:''}],
+        allUrls:[{url: "https://www.defaultsomethingss.com/*", time: '0',title:''}],
         dictionaryWords:[],
         wordId: 0,
         articleListURL:[]
@@ -120,7 +120,10 @@ function updateFilters(urls) {
 
       var blockedUrls = [];
       chrome.storage.local.get('mainMemory', (details) => {
-        blockedUrls = details.mainMemory.blockedWebsites;
+          for (var i=0; i<details.mainMemory.blockedWebsites.length; i++){
+              blockedUrls.push(details.mainMemory.blockedWebsites[i].url);
+          }
+        // blockedUrls = details.mainMemory.blockedWebsites;
         console.log('list of blocked urls below-- background')
         console.log(blockedUrls)
         chrome.webRequest.onBeforeRequest.addListener(blockRequest, {

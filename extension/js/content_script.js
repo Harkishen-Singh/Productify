@@ -52,6 +52,7 @@ var TimeCalculate = /** @class */ (function () {
         var _this = this;
         chrome.storage.local.get('mainMemory', function (details) {
             var allUrls = details.mainMemory.allUrls;
+            var title = '';
             console.warn('allUrls below');
             console.warn(allUrls);
             var i;
@@ -63,7 +64,9 @@ var TimeCalculate = /** @class */ (function () {
                 }
             }
             if (!(present)) {
-                allUrls.push({ url: _this.URL, time: '' });
+                title = document.title;
+                // console.log(title);
+                allUrls.push({ url: _this.URL, time: '',title:title});
                 details.mainMemory.allUrls = allUrls;
                 console.log('updated urls below');
                 console.log(allUrls);
