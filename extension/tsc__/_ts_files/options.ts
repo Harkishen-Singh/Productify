@@ -1,22 +1,47 @@
 chrome.storage.local.get('mainMemory', (details) => {
     let allUrls:any = details.mainMemory.allUrls, 
         allURlsNode: string = '',allBlockedNodes:string = '',
-        blockedWebsites:any = details.mainMemory.blockedWebsites;
+        blockedWebsites:any = details.mainMemory.blockedWebsites,
+        timeused:number = 0,
+        p_time:string = '';
     console.warn(allUrls)
 
     if (!(allUrls.length===1 && allUrls[0].url==="https://www.defaultsomethingss.com/*")) {
         for (var i = 1; i < allUrls.length; i++) {
-            if (allUrls[i].title.length > 48){
+            timeused = allUrls[i].time;
+            //to display time in secs,mins and hours
 
+            if(timeused < 60){ //timeused is in secconds
+                p_time = timeused + "secs";
+            }
+            else if(timeused >= 3600){
+                if(timeused / 3600 > 1){
+                    // x= timeused/ 3600;
+                    p_time = Math.floor(timeused/3600) + "hrs" + (timeused/3600 - Math.floor(timeused/3600))*60 + "mins";
+                }
+                else{
+
+                    p_time = Math.floor(timeused/3600) + "hr" + (timeused/3600 - Math.floor(timeused/3600))*60 + "mins";
+                }
+            }
+            else{
+                p_time = timeused/60 + "mins";
+            }
+            
+            if(p_time === "secs")
+                p_time = "0 secs"
+
+            if (allUrls[i].title.length > 48){
+                
                 allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
                 '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px;" >'
-                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title.substring(0,47)+'....' + ' </b></div>' +
+                + p_time + '</span></sup> <b> ' + allUrls[i].title.substring(0,47)+'....' + ' </b></div>' +
                 '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
             }
             else{
                 allURlsNode += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;max-width:100%;">' +
                 '<div class="col-md-10" style="font-size:15px;"><sup><span style="padding-right:5px;background-color:red;color:white;border-radius:5px;padding:3px;font-size:12px" >'
-                + parseInt(allUrls[i].time) / 60 + ' mins</span></sup> <b> ' + allUrls[i].title + ' </b></div>' +
+                + p_time + '</span></sup> <b> ' + allUrls[i].title + ' </b></div>' +
                 '<div class="col-md-2"><button id="' + allUrls[i].url + '" class="btn btn-danger" style="font-size:10px;">Block</button></div></div>';
             }
         }
@@ -37,10 +62,17 @@ chrome.storage.local.get('mainMemory', (details) => {
         console.warn(blockedWebsites)
         for(let i =0; i< blockedWebsites.length; i++) {
             if (blockedWebsites[i].url === 'https://www.defaultsomethingss.com/*') 
-                continue
-            allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 10px;">' +
-                '<div class="col-md-10" style="font-size:15px;"> <b> '+ blockedWebsites[i].title + ' </b></div>' + 
-                '<div class="col-md-2"><button id="'+blockedWebsites[i].url +'" class="btn btn-success">Allow</button></div></div>';
+                continue;
+                if(blockedWebsites[i].title.length >48){
+                        allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
+                        '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title.substring(0,47) + '....'+ ' </b></div>' +
+                        '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';
+                    }
+                else{
+                        allBlockedNodes += '<div class="row" style="border-bottom: 1px solid black;margin:5px;padding-bottom: 5px;">' +
+                        '<div class="col-md-10" style="font-size:15px;"> <b> ' + blockedWebsites[i].title + ' </b></div>' +
+                        '<div class="col-md-2"><button id="' + blockedWebsites[i].url + '" class="btn btn-success" style="font-size:10px;">Allow</button></div></div>';
+                }
             
         }
         document.getElementById('blocked_urls_view').innerHTML=allBlockedNodes;
