@@ -7,10 +7,10 @@ chrome.storage.local.get('mainMemory', (details) => {
     console.warn(allUrls)
 
     if (!(allUrls.length===1 && allUrls[0].url==="https://www.defaultsomethingss.com/*")) {
-        for (var i = 1; i < allUrls.length; i++) {
+        for (var i = (allUrls.length)-1 ; i>=0; i--) {
             timeused = allUrls[i].time;
             //to display time in secs,mins and hours
-
+            console.warn(allUrls[i].url)
             if(timeused < 60){ //timeused is in secconds
                 p_time = timeused + " secs";
             }
