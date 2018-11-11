@@ -72,22 +72,34 @@ class TimeCalculate  {
             console.warn('allUrls below')
             console.warn(allUrls);
             
-            var i;
+            var i, value, val;
+            val ='';
+            value = 0;
             let present = false;
             for(i=0;i<allUrls.length;++i){
                 if(allUrls[i].url == this.URL){
                     present = true;
+                    value = i;
                     break;
                 }
             }
-    
-            if (! (present)) {
+
+            if (!(present)) {
                     title = document.title;
                     allUrls.push({url:this.URL, time:'', title:title});
                     details.mainMemory.allUrls = allUrls;
                     console.log('updated urls below')
                     console.log(allUrls)
                     chrome.storage.local.set({'mainMemory': details.mainMemory})
+            }
+            if(present){
+                    title = document.title;
+                    val = allUrls.splice(value,1);
+                    console.log(val)
+                    allUrls.push({url:this.URL, time:'', title:title});
+                    details.mainMemory.allUrls = allUrls;
+                    console.log(allUrls)
+                    chrome.storage.local.set({'mainMemory':details.mainMemory})
             }
         });
     }
