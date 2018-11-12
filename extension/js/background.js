@@ -16,6 +16,7 @@ function setup() {
 
 chrome.runtime.onInstalled.addListener(setup);
 
+//Declaring the different options for context-menu
 var menu1 = {
     id: "meaning",
     title: "Meaning",
@@ -32,7 +33,38 @@ var menu3 = {
     id: "translation",
     title: "Translate",
     contexts: ["selection"]
-}
+};
+
+var menu4 = {
+    id: "quora",
+    title:"Quora",
+    contexts: ["selection"]
+};
+
+var menu5 = {
+    id:"wiki",
+    title: "Wikipedia",
+    contexts: ["selection"]
+};
+
+var menu6 = {
+    id:"stack",
+    title: "StackOverflow",
+    contexts: ["selection"]
+};
+
+var menu7 = {
+    id:"images",
+    title: "Images",
+    contexts: ["selection"]
+};
+
+var menu8 = {
+    id:"news",
+    title: "News",
+    contexts: ["selection"]
+};
+
 
 function fixedEncodeURI (str) {
     return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
@@ -41,11 +73,18 @@ function fixedEncodeURI (str) {
 chrome.contextMenus.create(menu1);
 chrome.contextMenus.create(menu2);
 chrome.contextMenus.create(menu3);
+chrome.contextMenus.create(menu4);
+chrome.contextMenus.create(menu5);
+chrome.contextMenus.create(menu6);
+chrome.contextMenus.create(menu7);
+chrome.contextMenus.create(menu8);
 
+//the functions of all the contents in the context-menu
 chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
 
     var text = clickData.selectionText;
 
+    //Search for meaning in the google
     if(clickData.menuItemId == "meaning" && text)
     {
         var googleUrl = "https://www.google.com/search?safe=active&q=define+" + fixedEncodeURI(clickData.selectionText);
@@ -86,6 +125,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             });
     }
 
+    //Translate the selected text
     if (clickData.menuItemId == "translation" && text )
     {
         var googleUrl = "https://translate.google.com/#auto/en/" + fixedEncodeURI(clickData.selectionText);
@@ -100,9 +140,88 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
         chrome.windows.create(search,function(){});
     }
 
+    //Pronounce the selected text
     if(clickData.menuItemId == "speak" && text)
     {
         chrome.tts.speak(clickData.selectionText, {'lang': 'en-US','rate': 0.7});
+    }
+
+    //Search the selected text in quora
+    if(clickData.menuItemId == "quora" && text)
+    {
+        var quoraUrl = "https://www.quora.com/search?q=" + fixedEncodeURI(clickData.selectionText)
+        var quoraSearch ={
+            "url":quoraUrl,
+            "type": "popup",
+            "top": 200,
+            "left":300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+
+        chrome.windows.create(quoraSearch,function(){});
+    }
+
+    //Search the selected text in wikipedia
+    if(clickData.menuItemId == "wiki" && text)
+    {
+        var wikiUrl = "https://en.wikipedia.org/wiki/" + fixedEncodeURI(clickData.selectionText)
+        var wikiSearch ={
+            "url":wikiUrl,
+            "type": "popup",
+            "top": 200,
+            "left":300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+
+        chrome.windows.create(wikiSearch , function(){});
+    }
+
+    //Search the selected text in stackoverflow
+    if(clickData.menuItemId == "stack" && text)
+    {
+        var stackUrl = "https://www.google.com/search?safe=active&q=stackoverflow+" + fixedEncodeURI(clickData.selectionText);
+        var stack = {
+            "url": stackUrl,
+            "type": "popup",
+            "top": 200,
+            "left": 300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(stack,function(){});
+
+    }
+
+    //Searches for the images
+    if(clickData.menuItemId == "images" && text)
+    {
+        var imageUrl = "https://www.google.co.in/search?tbm=isch&sa=1&ei=4k3pW7TyNIrQvgSZn56wBA&btnG=Search&q="+ fixedEncodeURI(text)
+        var image = {
+            "url": imageUrl,
+            "type": "popup",
+            "top": 200,
+            "left": 300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(image,function(){});
+    }
+
+    //Searches for the news
+    if(clickData.menuItemId == "news" && text)
+    {
+        var newsUrl = "https://news.google.com/search?q="+ fixedEncodeURI(text)
+        var news = {
+            "url": newsUrl,
+            "type": "popup",
+            "top": 200,
+            "left": 300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(news,function(){});
     }
 
 });
