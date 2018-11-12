@@ -64,6 +64,17 @@ var menu8 = {
     title: "News",
     contexts: ["selection"]
 };
+var menu9 = {
+    id: "youtube",
+    title:"Youtube",
+    contexts: ["selection"]
+};
+
+var menu10 = {
+    id: "amazon",
+    title: "Amazon",
+    contexts: ["selection"]
+}
 
 
 function fixedEncodeURI (str) {
@@ -78,6 +89,8 @@ chrome.contextMenus.create(menu5);
 chrome.contextMenus.create(menu6);
 chrome.contextMenus.create(menu7);
 chrome.contextMenus.create(menu8);
+chrome.contextMenus.create(menu9);
+chrome.contextMenus.create(menu10);
 
 //the functions of all the contents in the context-menu
 chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
@@ -181,7 +194,7 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     //Search the selected text in stackoverflow
     if(clickData.menuItemId == "stack" && text)
     {
-        var stackUrl = "https://www.google.com/search?safe=active&q=stackoverflow+" + fixedEncodeURI(clickData.selectionText);
+        var stackUrl = "https://stackoverflow.com/search?q=" + fixedEncodeURI(clickData.selectionText);
         var stack = {
             "url": stackUrl,
             "type": "popup",
@@ -222,6 +235,36 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
             "height": Math.round(screen.availHeight/2)
         };
         chrome.windows.create(news,function(){});
+    }
+
+    //Searches video for the selected text in youtube
+    if(clickData.menuItemId == "youtube" && text)
+    {
+        var videosUrl = "https://www.youtube.com/results?search_query="+ fixedEncodeURI(text)
+        var videos ={
+            "url":videosUrl,
+            "type": "popup",
+            "top": 200,
+            "left": 300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(videos, function(){});
+    }
+
+    //Searches for the product in amazon
+    if(clickData.menuItemId == "amazon" && text)
+    {
+        var amazonUrl = "https://www.amazon.in/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords="+ fixedEncodeURI(text)
+        var amazon ={
+            "url":amazonUrl,
+            "type": "popup",
+            "top": 200,
+            "left": 300,
+            "width": Math.round(screen.availWidth/2),
+            "height": Math.round(screen.availHeight/2)
+        };
+        chrome.windows.create(amazon, function(){});
     }
 
 });
