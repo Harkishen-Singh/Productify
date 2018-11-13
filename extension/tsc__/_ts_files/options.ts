@@ -175,11 +175,12 @@ function articleViewHandler() {
                 // List.addEventListener('click', assignActionsArticles, false );
                 // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
-                console.log(orderedList)
+                console.log(orderedList);
 
             }
             document.getElementById('articleTitle').appendChild(orderedList);
-            for(let i =1; i< totalArticles; i++) {
+            for(let i =0; i< totalArticles; i++) {
+                document.getElementById(allSavedArticles[i].URL).addEventListener('click',assignActionsArticles, false);
                 document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
             }
 
@@ -221,7 +222,8 @@ function removeArticle(this:HTMLElement, el:any){
                 console.warn('same URL found. deleting from saved Articles')
                 url = allSavedArticles[j].url;
                 console.log(this.id);
-                details.savedArticlesCodeZero.savedArticles.splice(j,1)
+                details.savedArticlesCodeZero.savedArticles.splice(j,1);
+                break;
             }
         }
         

@@ -158,7 +158,8 @@ function articleViewHandler() {
                 console.log(orderedList);
             }
             document.getElementById('articleTitle').appendChild(orderedList);
-            for (var i = 1; i < totalArticles; i++) {
+            for (var i = 0; i < totalArticles; i++) {
+                document.getElementById(allSavedArticles[i].URL).addEventListener('click', assignActionsArticles, false);
                 document.getElementById(allSavedArticles[i].title).addEventListener('click', removeArticle, false);
             }
         }
@@ -200,6 +201,7 @@ function removeArticle(el) {
                 url = allSavedArticles[j].url;
                 console.log(_this.id);
                 details.savedArticlesCodeZero.savedArticles.splice(j, 1);
+                break;
             }
         }
         chrome.storage.local.set({ 'savedArticlesCodeZero': details.savedArticlesCodeZero });
