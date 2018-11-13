@@ -121,11 +121,12 @@ class TimeCalculate  {
 
     savedArticles(messageObject: articleSaveDeclaration) {
         alert('Article Successfully Saved!')
-        var DOMs = document.querySelectorAll('body');
+        var DOMs = document.querySelectorAll("p,pre,ol,ul,span,a,h1,h2,h3,iframe[data-src]");
         var articleSize = DOMs.length;
         var message:string = '', date:any = Date();
     
         for(let i=0; i< DOMs.length; i++) {
+
             message += DOMs[i].innerHTML;
         }
         messageObject.URL = document.URL;

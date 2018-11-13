@@ -176,10 +176,11 @@ function articleViewHandler() {
                 // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
                 console.log(orderedList);
-
+                
             }
             document.getElementById('articleTitle').appendChild(orderedList);
             for(let i =0; i< totalArticles; i++) {
+                
                 document.getElementById(allSavedArticles[i].URL).addEventListener('click',assignActionsArticles, false);
                 document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
             }
@@ -202,7 +203,7 @@ function assignActionsArticles(this: HTMLElement, el: any) {
         let allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for(let j=0; j<allSavedArticles2.length; j++) {
             if (allSavedArticles2[j].URL === this.id) {
-                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br>' + allSavedArticles2[j].message;
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br><br><br>' + allSavedArticles2[j].message;
                 break;
             }
         }

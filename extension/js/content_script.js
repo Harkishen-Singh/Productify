@@ -98,7 +98,7 @@ var TimeCalculate = /** @class */ (function () {
     };
     TimeCalculate.prototype.savedArticles = function (messageObject) {
         alert('Article Successfully Saved!');
-        var DOMs = document.querySelectorAll('body');
+        var DOMs = document.querySelectorAll("p,pre,ol,ul,span,a,h1,h2,h3,iframe[data-src]");
         var articleSize = DOMs.length;
         var message = '', date = Date();
         for (var i = 0; i < DOMs.length; i++) {

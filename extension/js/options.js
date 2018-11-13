@@ -181,7 +181,7 @@ function assignActionsArticles(el) {
         var allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for (var j = 0; j < allSavedArticles2.length; j++) {
             if (allSavedArticles2[j].URL === _this.id) {
-                document.getElementById('articleBody').innerHTML = '<b>Date : </b>' + allSavedArticles2[j].date + '<br>' + allSavedArticles2[j].message;
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>' + allSavedArticles2[j].date + '<br><br><br>' + allSavedArticles2[j].message;
                 break;
             }
         }
