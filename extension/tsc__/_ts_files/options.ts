@@ -153,6 +153,7 @@ function articleViewHandler() {
         let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
         let orderedList: HTMLElement = document.createElement('ol');
         let totalArticles: number = allSavedArticles.length;
+
         // for(let i=0; i< totalArticles; i++) {
         //     let x = document.createElement('p');
         //     x.id = allSavedArticles[i].URL;
@@ -160,15 +161,28 @@ function articleViewHandler() {
         //     x.addEventListener('click', assignActionsArticles, false )
         //     document.getElementById('articleTitle').appendChild(x)
         // }
+
         if (totalArticles) {
             for(let i=0; i< totalArticles; i++) {
                 let List = document.createElement('li');
-                List.id = allSavedArticles[i].URL;
-                List.innerHTML = allSavedArticles[i].URL + '<br>';
-                List.addEventListener('click', assignActionsArticles, false )
+                // List.id = allSavedArticles[i].URL;
+                console.log("z")
+                List.innerHTML = '<div class="row" style="padding-top:5px;padding-bottom:5px;"><div id="'+ allSavedArticles[i].URL +'" class="col-md-10"><b>'+ allSavedArticles[i].title
+                +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2">'
+                +'<img style ="height:25px;width:25px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
+                console.log(List.innerHTML);
+                console.log("x")
+                // List.addEventListener('click', assignActionsArticles, false );
+                // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
+                console.log(orderedList)
+
             }
             document.getElementById('articleTitle').appendChild(orderedList);
+            for(let i =1; i< totalArticles; i++) {
+                document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
+            }
+
         } else {
             let element: HTMLElement = document.createElement('p');
             element.innerHTML = 'No articles saved Yet.';
@@ -192,4 +206,27 @@ function assignActionsArticles(this: HTMLElement, el: any) {
             }
         }
     });
+}
+
+function removeArticle(this:HTMLElement, el:any){
+    console.log('remove the article' + this.id);
+    let id = this.id;
+    let url = '';
+    chrome.storage.local.get('savedArticlesCodeZero', (details) => {
+        let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
+        
+        for(let j=0;j<allSavedArticles.length; j++) {
+            console.log("Reached")
+            if(allSavedArticles[j].title===this.id) {
+                console.warn('same URL found. deleting from saved Articles')
+                url = allSavedArticles[j].url;
+                console.log(this.id);
+                details.savedArticlesCodeZero.savedArticles.splice(j,1)
+            }
+        }
+        
+        chrome.storage.local.set({'savedArticlesCodeZero': details.savedArticlesCodeZero})
+        alert('Removed '+this.id+' from Articles');
+        window.location.reload();
+    })
 }

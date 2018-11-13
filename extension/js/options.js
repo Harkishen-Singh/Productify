@@ -145,12 +145,22 @@ function articleViewHandler() {
         if (totalArticles) {
             for (var i = 0; i < totalArticles; i++) {
                 var List = document.createElement('li');
-                List.id = allSavedArticles[i].URL;
-                List.innerHTML = allSavedArticles[i].URL + '<br>';
-                List.addEventListener('click', assignActionsArticles, false);
+                // List.id = allSavedArticles[i].URL;
+                console.log("z");
+                List.innerHTML = '<div class="row" style="padding-top:5px;padding-bottom:5px;"><div id="' + allSavedArticles[i].URL + '" class="col-md-10"><b>' + allSavedArticles[i].title
+                    + '</b></div>' + '<div id ="' + allSavedArticles[i].title + '" class="col-md-2">'
+                    + '<img style ="height:25px;width:25px;" src="' + chrome.extension.getURL('icons/trash.png') + '"  /> </div></div>';
+                console.log(List.innerHTML);
+                console.log("x");
+                // List.addEventListener('click', assignActionsArticles, false );
+                // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
+                console.log(orderedList);
             }
             document.getElementById('articleTitle').appendChild(orderedList);
+            for (var i = 1; i < totalArticles; i++) {
+                document.getElementById(allSavedArticles[i].title).addEventListener('click', removeArticle, false);
+            }
         }
         else {
             var element = document.createElement('p');
@@ -174,5 +184,26 @@ function assignActionsArticles(el) {
                 break;
             }
         }
+    });
+}
+function removeArticle(el) {
+    var _this = this;
+    console.log('remove the article' + this.id);
+    var id = this.id;
+    var url = '';
+    chrome.storage.local.get('savedArticlesCodeZero', function (details) {
+        var allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+        for (var j = 0; j < allSavedArticles.length; j++) {
+            console.log("Reached");
+            if (allSavedArticles[j].title === _this.id) {
+                console.warn('same URL found. deleting from saved Articles');
+                url = allSavedArticles[j].url;
+                console.log(_this.id);
+                details.savedArticlesCodeZero.savedArticles.splice(j, 1);
+            }
+        }
+        chrome.storage.local.set({ 'savedArticlesCodeZero': details.savedArticlesCodeZero });
+        alert('Removed ' + _this.id + ' from Articles');
+        window.location.reload();
     });
 }

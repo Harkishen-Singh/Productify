@@ -15,6 +15,7 @@ var TimeCalculate = /** @class */ (function () {
         var _this = this;
         var saveIconElement = document.createElement('img');
         saveIconElement.src = this.customIcon[0];
+        var i = 0;
         // saveIconElement.setAttribute("src", this.customIcon[0]);
         saveIconElement.setAttribute("alt", "Save Current Article");
         saveIconElement.style.position = 'fixed';
@@ -24,8 +25,18 @@ var TimeCalculate = /** @class */ (function () {
         saveIconElement.style.bottom = '3%';
         saveIconElement.style.opacity = '50%';
         saveIconElement.onclick = function () {
-            _this.savedArticles({ URL: '', message: '', date: '' });
+            _this.savedArticles({ URL: '', message: '', date: '', title: '' });
         };
+        //will show the download button only if it is not downloaded previously
+        // chrome.storage.local.get('savedArticlesCodeZero', (details) =>{
+        //     let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
+        //     do{
+        //         if(!(allSavedArticles[i].URL === document.URL)){
+        //             document.body.appendChild(saveIconElement);
+        //         }
+        //         i++;
+        //     }while(i<allSavedArticles.length)
+        // });
         document.body.appendChild(saveIconElement);
     };
     TimeCalculate.prototype.startTimerCounter = function () {
@@ -94,6 +105,7 @@ var TimeCalculate = /** @class */ (function () {
             message += DOMs[i].innerHTML;
         }
         messageObject.URL = document.URL;
+        messageObject.title = document.title;
         messageObject.message = message;
         messageObject.date = date;
         chrome.runtime.sendMessage({ savedArticles: messageObject });
