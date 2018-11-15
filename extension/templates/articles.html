@@ -1,0 +1,43 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Saved Articles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/bootstrap.min.css" />
+
+    <script src="../js/options.js"></script>
+</head>
+
+<style>
+    h3{
+        font-weight: bolder;
+        font-size:35px;
+	    color:brown;
+    }
+
+
+</style>
+<body>
+
+    <div style="margin:1% 3% 3% 3%;">
+        <div class="container-fluid">
+            <div class="row">
+                <h3>Article View</h3> <p><i>Below are the list of articles you have come across since installation</i></p>
+                <hr >
+                <div class="col-md-3" style="cursor:pointer;border:1px black solid;height:600px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;overflow-y:auto;">
+                    <div id="articleTitle" style="margin-left: -20px;margin-top:20px;"></div>
+                </div>
+                <div class="col-md-9" style="border:1px black solid;height:600px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;overflow-y:auto">
+                    <div class="row">
+                        <div id="articleBody" style="overflow-y:auto; width: 100%;"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
