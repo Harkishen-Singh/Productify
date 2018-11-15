@@ -166,22 +166,28 @@ function articleViewHandler() {
             for(let i=0; i< totalArticles; i++) {
                 let List = document.createElement('li');
                 // List.id = allSavedArticles[i].URL;
-                console.log("z")
-                List.innerHTML = '<div class="row" style="padding-top:5px;padding-bottom:5px;"><div id="'+ allSavedArticles[i].URL +'" class="col-md-10"><b>'+ allSavedArticles[i].title
-                +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2">'
-                +'<img style ="height:25px;width:25px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
-                console.log(List.innerHTML);
-                console.log("x")
+                if(allSavedArticles[i].title.length > 28){
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_'+ allSavedArticles[i].URL 
+                    +'" class="col-md-10" style="font-weight:600;margin-top:-15px;">'+ allSavedArticles[i].title.substring(0,28)+"...."
+                    +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                    +'<img style ="height:25px;width:25px;margin-left: -20px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
+                else{
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_'+ allSavedArticles[i].URL 
+                    +'" class="col-md-10" style="font-weight:600;margin-top:-15px;">'+ allSavedArticles[i].title
+                    +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                    +'<img style ="height:25px;width:25px;margin-left: -20px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
                 // List.addEventListener('click', assignActionsArticles, false );
                 // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
-                console.log(orderedList);
-                
             }
             document.getElementById('articleTitle').appendChild(orderedList);
             for(let i =0; i< totalArticles; i++) {
                 
-                document.getElementById(allSavedArticles[i].URL).addEventListener('click',assignActionsArticles, false);
+                document.getElementById("_"+allSavedArticles[i].URL).addEventListener('click',assignActionsArticles, false);
                 document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
             }
 
@@ -202,7 +208,7 @@ function assignActionsArticles(this: HTMLElement, el: any) {
     chrome.storage.local.get('savedArticlesCodeZero', (details) => {
         let allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for(let j=0; j<allSavedArticles2.length; j++) {
-            if (allSavedArticles2[j].URL === this.id) {
+            if (allSavedArticles2[j].URL === this.id.substring(1)) {
                 document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br><br><br>' + allSavedArticles2[j].message;
                 break;
             }
@@ -218,11 +224,9 @@ function removeArticle(this:HTMLElement, el:any){
         let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
         
         for(let j=0;j<allSavedArticles.length; j++) {
-            console.log("Reached")
             if(allSavedArticles[j].title===this.id) {
                 console.warn('same URL found. deleting from saved Articles')
                 url = allSavedArticles[j].url;
-                console.log(this.id);
                 details.savedArticlesCodeZero.savedArticles.splice(j,1);
                 break;
             }
