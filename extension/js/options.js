@@ -145,12 +145,30 @@ function articleViewHandler() {
         if (totalArticles) {
             for (var i = 0; i < totalArticles; i++) {
                 var List = document.createElement('li');
-                List.id = allSavedArticles[i].URL;
-                List.innerHTML = allSavedArticles[i].URL + '<br>';
-                List.addEventListener('click', assignActionsArticles, false);
+                // List.id = allSavedArticles[i].URL;
+                if (allSavedArticles[i].title.length > 28) {
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_' + allSavedArticles[i].URL
+                        + '" class="col-md-10" style="font-weight:600;margin-top:-15px;">' + allSavedArticles[i].title.substring(0, 28) + "...."
+                        + '</b></div>' + '<div id ="' + allSavedArticles[i].title + '" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                        + '<img style ="height:25px;width:25px;margin-left: -20px;" src="' + chrome.extension.getURL('icons/trash.png') + '"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
+                else {
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_' + allSavedArticles[i].URL
+                        + '" class="col-md-10" style="font-weight:600;margin-top:-15px;">' + allSavedArticles[i].title
+                        + '</b></div>' + '<div id ="' + allSavedArticles[i].title + '" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                        + '<img style ="height:25px;width:25px;margin-left: -20px;" src="' + chrome.extension.getURL('icons/trash.png') + '"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
+                // List.addEventListener('click', assignActionsArticles, false );
+                // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
             }
             document.getElementById('articleTitle').appendChild(orderedList);
+            for (var i = 0; i < totalArticles; i++) {
+                document.getElementById("_" + allSavedArticles[i].URL).addEventListener('click', assignActionsArticles, false);
+                document.getElementById(allSavedArticles[i].title).addEventListener('click', removeArticle, false);
+            }
         }
         else {
             var element = document.createElement('p');
@@ -169,10 +187,30 @@ function assignActionsArticles(el) {
     chrome.storage.local.get('savedArticlesCodeZero', function (details) {
         var allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for (var j = 0; j < allSavedArticles2.length; j++) {
-            if (allSavedArticles2[j].URL === _this.id) {
-                document.getElementById('articleBody').innerHTML = '<b>Date : </b>' + allSavedArticles2[j].date + '<br>' + allSavedArticles2[j].message;
+            if (allSavedArticles2[j].URL === _this.id.substring(1)) {
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>' + allSavedArticles2[j].date + '<br><br><br>' + allSavedArticles2[j].message;
                 break;
             }
         }
+    });
+}
+function removeArticle(el) {
+    var _this = this;
+    console.log('remove the article' + this.id);
+    var id = this.id;
+    var url = '';
+    chrome.storage.local.get('savedArticlesCodeZero', function (details) {
+        var allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+        for (var j = 0; j < allSavedArticles.length; j++) {
+            if (allSavedArticles[j].title === _this.id) {
+                console.warn('same URL found. deleting from saved Articles');
+                url = allSavedArticles[j].url;
+                details.savedArticlesCodeZero.savedArticles.splice(j, 1);
+                break;
+            }
+        }
+        chrome.storage.local.set({ 'savedArticlesCodeZero': details.savedArticlesCodeZero });
+        alert('Removed ' + _this.id + ' from Articles');
+        window.location.reload();
     });
 }

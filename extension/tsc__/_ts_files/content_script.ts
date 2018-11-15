@@ -4,6 +4,7 @@ interface articleSaveDeclaration {
     URL: string;
     message: string;
     date: string;
+    title:string;
 }
 
 class TimeCalculate  {	
@@ -28,6 +29,7 @@ class TimeCalculate  {
     onPageLoad() {
         var saveIconElement: any = document.createElement('img');
         saveIconElement.src = this.customIcon[0];
+        var i:number =0;
         // saveIconElement.setAttribute("src", this.customIcon[0]);
         saveIconElement.setAttribute("alt", "Save Current Article");
         saveIconElement.style.position = 'fixed';
@@ -37,9 +39,22 @@ class TimeCalculate  {
         saveIconElement.style.bottom = '3%';
         saveIconElement.style.opacity = '50%';
         saveIconElement.onclick = () => {
-            this.savedArticles({URL:'', message:'', date: ''});
+            this.savedArticles({URL:'', message:'', date: '', title: ''});
         }
+        
+        //will show the download button only if it is not downloaded previously
+        // chrome.storage.local.get('savedArticlesCodeZero', (details) =>{
+        //     let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
+            
+        //     do{
+        //         if(!(allSavedArticles[i].URL === document.URL)){
+        //             document.body.appendChild(saveIconElement);
+        //         }
+        //         i++;
+        //     }while(i<allSavedArticles.length)
+        // });
         document.body.appendChild(saveIconElement);
+ 
     }
 
     startTimerCounter() {	
@@ -106,14 +121,16 @@ class TimeCalculate  {
 
     savedArticles(messageObject: articleSaveDeclaration) {
         alert('Article Successfully Saved!')
-        var DOMs = document.querySelectorAll('body');
+        var DOMs = document.querySelectorAll("p,pre,ol,ul,span,a,h1,h2,h3,iframe[data-src]");
         var articleSize = DOMs.length;
         var message:string = '', date:any = Date();
     
         for(let i=0; i< DOMs.length; i++) {
+
             message += DOMs[i].innerHTML;
         }
         messageObject.URL = document.URL;
+        messageObject.title = document.title;
         messageObject.message = message;
         messageObject.date = date;
         chrome.runtime.sendMessage({savedArticles: messageObject})

@@ -153,6 +153,7 @@ function articleViewHandler() {
         let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
         let orderedList: HTMLElement = document.createElement('ol');
         let totalArticles: number = allSavedArticles.length;
+
         // for(let i=0; i< totalArticles; i++) {
         //     let x = document.createElement('p');
         //     x.id = allSavedArticles[i].URL;
@@ -160,15 +161,36 @@ function articleViewHandler() {
         //     x.addEventListener('click', assignActionsArticles, false )
         //     document.getElementById('articleTitle').appendChild(x)
         // }
+
         if (totalArticles) {
             for(let i=0; i< totalArticles; i++) {
                 let List = document.createElement('li');
-                List.id = allSavedArticles[i].URL;
-                List.innerHTML = allSavedArticles[i].URL + '<br>';
-                List.addEventListener('click', assignActionsArticles, false )
+                // List.id = allSavedArticles[i].URL;
+                if(allSavedArticles[i].title.length > 28){
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_'+ allSavedArticles[i].URL 
+                    +'" class="col-md-10" style="font-weight:600;margin-top:-15px;">'+ allSavedArticles[i].title.substring(0,28)+"...."
+                    +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                    +'<img style ="height:25px;width:25px;margin-left: -20px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
+                else{
+                    List.innerHTML = '<div class="row" class= "inline" style="padding-top:15px;padding-bottom:5px;"><div id="_'+ allSavedArticles[i].URL 
+                    +'" class="col-md-10" style="font-weight:600;margin-top:-15px;">'+ allSavedArticles[i].title
+                    +'</b></div>'+'<div id ="'+ allSavedArticles[i].title +'" class="col-md-2" style="margin-top:-15px;padding-left:30px;">'
+                    +'<img style ="height:25px;width:25px;margin-left: -20px;" src="'+ chrome.extension.getURL('icons/trash.png') +'"  /> </div></div>';
+                    console.log(List.innerHTML);
+                }
+                // List.addEventListener('click', assignActionsArticles, false );
+                // document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
                 orderedList.appendChild(List);
             }
             document.getElementById('articleTitle').appendChild(orderedList);
+            for(let i =0; i< totalArticles; i++) {
+                
+                document.getElementById("_"+allSavedArticles[i].URL).addEventListener('click',assignActionsArticles, false);
+                document.getElementById(allSavedArticles[i].title).addEventListener('click',removeArticle, false);
+            }
+
         } else {
             let element: HTMLElement = document.createElement('p');
             element.innerHTML = 'No articles saved Yet.';
@@ -186,10 +208,32 @@ function assignActionsArticles(this: HTMLElement, el: any) {
     chrome.storage.local.get('savedArticlesCodeZero', (details) => {
         let allSavedArticles2 = details.savedArticlesCodeZero.savedArticles;
         for(let j=0; j<allSavedArticles2.length; j++) {
-            if (allSavedArticles2[j].URL === this.id) {
-                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br>' + allSavedArticles2[j].message;
+            if (allSavedArticles2[j].URL === this.id.substring(1)) {
+                document.getElementById('articleBody').innerHTML = '<b>Date : </b>'+ allSavedArticles2[j].date+'<br><br><br>' + allSavedArticles2[j].message;
                 break;
             }
         }
     });
+}
+
+function removeArticle(this:HTMLElement, el:any){
+    console.log('remove the article' + this.id);
+    let id = this.id;
+    let url = '';
+    chrome.storage.local.get('savedArticlesCodeZero', (details) => {
+        let allSavedArticles: any = details.savedArticlesCodeZero.savedArticles;
+        
+        for(let j=0;j<allSavedArticles.length; j++) {
+            if(allSavedArticles[j].title===this.id) {
+                console.warn('same URL found. deleting from saved Articles')
+                url = allSavedArticles[j].url;
+                details.savedArticlesCodeZero.savedArticles.splice(j,1);
+                break;
+            }
+        }
+        
+        chrome.storage.local.set({'savedArticlesCodeZero': details.savedArticlesCodeZero})
+        alert('Removed '+this.id+' from Articles');
+        window.location.reload();
+    })
 }
