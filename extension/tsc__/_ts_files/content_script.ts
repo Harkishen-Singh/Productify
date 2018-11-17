@@ -10,7 +10,7 @@ interface articleSaveDeclaration {
 class TimeCalculate  {	
 
     private timeOrphan: any;
-    private totalTime: number;
+    private totalTime: any;
     private URL: string;
     private timeViewed: any;
     private stopTime: any;
@@ -74,12 +74,6 @@ class TimeCalculate  {
         return 3;	
     }	
 
-    diffTime() {	
-        this.timeViewed = Math.abs(this.stopTime - this.startTime); 	
-        alert('Time viewed : '+this.timeViewed);	
-        console.log('Time Watched : '+this.timeViewed)	
-    }	
-
     addCurrentUrlAfterCheckMemory() {
         chrome.storage.local.get('mainMemory', (details) => {
             let allUrls = details.mainMemory.allUrls;
@@ -124,11 +118,14 @@ class TimeCalculate  {
         var DOMs = document.querySelectorAll("p,pre,ol,ul,span,a,h1,h2,h3,iframe[data-src]");
         var articleSize = DOMs.length;
         var message:string = '', date:any = Date();
+
     
         for(let i=0; i< DOMs.length; i++) {
 
             message += DOMs[i].innerHTML;
         }
+
+        
         messageObject.URL = document.URL;
         messageObject.title = document.title;
         messageObject.message = message;

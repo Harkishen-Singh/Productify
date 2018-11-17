@@ -54,11 +54,6 @@ var TimeCalculate = /** @class */ (function () {
     TimeCalculate.prototype.calculate = function () {
         return 3;
     };
-    TimeCalculate.prototype.diffTime = function () {
-        this.timeViewed = Math.abs(this.stopTime - this.startTime);
-        alert('Time viewed : ' + this.timeViewed);
-        console.log('Time Watched : ' + this.timeViewed);
-    };
     TimeCalculate.prototype.addCurrentUrlAfterCheckMemory = function () {
         var _this = this;
         chrome.storage.local.get('mainMemory', function (details) {

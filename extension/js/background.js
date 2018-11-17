@@ -308,8 +308,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             let allUrls = details.mainMemory.allUrls;	
             for( let i=0; i< allUrls.length; i++) {	
                 if (allUrls[i].url === request.domOBJ.url) {	
-                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;	
-                    chrome.storage.local.set({'mainMemory': details.mainMemory})	
+                    console.log(typeof details.mainMemory.allUrls[i].time + ' ' + typeof request.domOBJ.totalTime)
+                    details.mainMemory.allUrls[i].time = (request.domOBJ.totalTime);	
+                    chrome.storage.local.set({'mainMemory': details.mainMemory});	
                 }	
             }	
             	
@@ -329,6 +330,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // })
         chrome.storage.local.get('savedArticlesCodeZero', (details) => {
             let allSavedArticles = details.savedArticlesCodeZero.savedArticles;
+            console.log(allSavedArticles)
+            console.log(request.savedArticles.URL)
+            var newURL = "_" + request.savedArticles.URL
+            console.log(newURL)
             if (allSavedArticles.length===0){
                 console.log('in ==0 case')
                 let a = []
@@ -338,11 +343,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 details.savedArticlesCodeZero.savedArticles.push(request.savedArticles)
                 chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
             }
-            else if (!(request.savedArticles in allSavedArticles)){
+            else if (!(newURL in allSavedArticles.URL)){
                 console.log('NORMAL CASES')
+                console.log(request.savedArticles)
                 details.savedArticlesCodeZero.savedArticles.push(request.savedArticles);
                 chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
             }
+
         })
     }
 })
