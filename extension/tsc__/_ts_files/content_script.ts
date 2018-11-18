@@ -10,7 +10,7 @@ interface articleSaveDeclaration {
 class TimeCalculate  {	
 
     private timeOrphan: any;
-    private totalTime: any;
+    private totalTime: number;
     private URL: string;
     private timeViewed: any;
     private stopTime: any;
