@@ -330,8 +330,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             }
             else if (!(request.savedArticles in allSavedArticles)){
                 console.log('NORMAL CASES')
-                details.savedArticlesCodeZero.savedArticles.push(request.savedArticles);
-                chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
+                console.log(request.savedArticles)
+                console.log(allSavedArticles)
+                let len = allSavedArticles.length;
+                let i =0;
+                let j= 0;
+                for(i=0;i<len;i++){
+                    console.log(i)
+                    console.log(request.savedArticles.URL)
+                    console.log(allSavedArticles[i].URL)
+                    if(request.savedArticles.URL === allSavedArticles[i].URL && i == len-1){
+                        j=10;
+                        break;
+                    }
+                    if(request.savedArticles.URL === allSavedArticles[i].URL){
+                        break;
+                    }
+                }
+                if(j != 10){
+                    if(i-1 == (allSavedArticles.length)-1){
+                        console.log("hii")
+                        details.savedArticlesCodeZero.savedArticles.push(request.savedArticles);
+                        chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
+                    }
+                }
             }
         })
     }
