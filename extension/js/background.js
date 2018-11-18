@@ -98,7 +98,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     var text = clickData.selectionText;
 
     //Search for meaning in the google
-    if(clickData.menuItemId == "meaning" && text){
+    if(clickData.menuItemId == "meaning" && text)
+    {
         var googleUrl = "https://www.google.com/search?safe=active&q=define+" + fixedEncodeURI(clickData.selectionText);
         var search = {
             "url": googleUrl,
@@ -138,7 +139,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Translate the selected text
-    if (clickData.menuItemId == "translation" && text ){
+    if (clickData.menuItemId == "translation" && text )
+    {
         var googleUrl = "https://translate.google.com/#auto/en/" + fixedEncodeURI(clickData.selectionText);
         var search = {
             "url": googleUrl,
@@ -152,12 +154,14 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Pronounce the selected text
-    if(clickData.menuItemId == "speak" && text){
+    if(clickData.menuItemId == "speak" && text)
+    {
         chrome.tts.speak(clickData.selectionText, {'lang': 'en-US','rate': 0.7});
     }
 
     //Search the selected text in quora
-    if(clickData.menuItemId == "quora" && text){
+    if(clickData.menuItemId == "quora" && text)
+    {
         var quoraUrl = "https://www.quora.com/search?q=" + fixedEncodeURI(clickData.selectionText)
         var quoraSearch ={
             "url":quoraUrl,
@@ -172,7 +176,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Search the selected text in wikipedia
-    if(clickData.menuItemId == "wiki" && text){
+    if(clickData.menuItemId == "wiki" && text)
+    {
         var wikiUrl = "https://en.wikipedia.org/wiki/" + fixedEncodeURI(clickData.selectionText)
         var wikiSearch ={
             "url":wikiUrl,
@@ -187,7 +192,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Search the selected text in stackoverflow
-    if(clickData.menuItemId == "stack" && text){
+    if(clickData.menuItemId == "stack" && text)
+    {
         var stackUrl = "https://stackoverflow.com/search?q=" + fixedEncodeURI(clickData.selectionText);
         var stack = {
             "url": stackUrl,
@@ -202,7 +208,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Searches for the images
-    if(clickData.menuItemId == "images" && text){
+    if(clickData.menuItemId == "images" && text)
+    {
         var imageUrl = "https://www.google.co.in/search?tbm=isch&sa=1&ei=4k3pW7TyNIrQvgSZn56wBA&btnG=Search&q="+ fixedEncodeURI(text)
         var image = {
             "url": imageUrl,
@@ -216,7 +223,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Searches for the news
-    if(clickData.menuItemId == "news" && text){
+    if(clickData.menuItemId == "news" && text)
+    {
         var newsUrl = "https://news.google.com/search?q="+ fixedEncodeURI(text)
         var news = {
             "url": newsUrl,
@@ -230,7 +238,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Searches video for the selected text in youtube
-    if(clickData.menuItemId == "youtube" && text){
+    if(clickData.menuItemId == "youtube" && text)
+    {
         var videosUrl = "https://www.youtube.com/results?search_query="+ fixedEncodeURI(text)
         var videos ={
             "url":videosUrl,
@@ -244,7 +253,8 @@ chrome.contextMenus.onClicked.addListener( function(clickData,$scope){
     }
 
     //Searches for the product in amazon
-    if(clickData.menuItemId == "amazon" && text){
+    if(clickData.menuItemId == "amazon" && text)
+    {
         var amazonUrl = "https://www.amazon.in/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords="+ fixedEncodeURI(text)
         var amazon ={
             "url":amazonUrl,
@@ -298,8 +308,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             let allUrls = details.mainMemory.allUrls;	
             for( let i=0; i< allUrls.length; i++) {	
                 if (allUrls[i].url === request.domOBJ.url) {	
-                    details.mainMemory.allUrls[i].time = (request.domOBJ.totalTime);	
-                    chrome.storage.local.set({'mainMemory': details.mainMemory});	
+                    details.mainMemory.allUrls[i].time = request.domOBJ.totalTime;	
+                    chrome.storage.local.set({'mainMemory': details.mainMemory})	
                 }	
             }	
             	
@@ -328,7 +338,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 details.savedArticlesCodeZero.savedArticles.push(request.savedArticles)
                 chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
             }
-            else if (!(request.savedArticles in allSavedArticles.URL)){
+            else if (!(request.savedArticles in allSavedArticles)){
                 console.log('NORMAL CASES')
                 details.savedArticlesCodeZero.savedArticles.push(request.savedArticles);
                 chrome.storage.local.set({'savedArticlesCodeZero':details.savedArticlesCodeZero})
