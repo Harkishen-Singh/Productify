@@ -58,7 +58,16 @@ class TimeCalculate  {
     }
 
     startTimerCounter() {	
-        this.startTime = this.timeOrphan;	
+        this.startTime = this.timeOrphan;
+        let i;	
+        chrome.storage.local.get('mainMemory', (details) => {
+            let allUrls = details.mainMemory.allUrls;
+            for(i=0; i<allUrls.length; i++){
+                if(allUrls[i].url == this.URL){
+                    this.totalTime = allUrls[i].time;
+                }
+            }
+        });
         setInterval(() => {	
             this.totalTime += this.calculate();	
             let objectDOM = {	
