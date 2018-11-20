@@ -42,6 +42,15 @@ var TimeCalculate = /** @class */ (function () {
     TimeCalculate.prototype.startTimerCounter = function () {
         var _this = this;
         this.startTime = this.timeOrphan;
+        var i;
+        chrome.storage.local.get('mainMemory', function (details) {
+            var allUrls = details.mainMemory.allUrls;
+            for (i = 0; i < allUrls.length; i++) {
+                if (allUrls[i].url == _this.URL) {
+                    _this.totalTime = allUrls[i].time;
+                }
+            }
+        });
         setInterval(function () {
             _this.totalTime += _this.calculate();
             var objectDOM = {
