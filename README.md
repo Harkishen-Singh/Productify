@@ -1,4 +1,4 @@
-#<b>PRODUCTIFY</b><br><br>
+# PRODUCTIFY
 What is Productify?
 Productify is a Chrome Extension that aims to increase the efficiency of an everyday user on the internet.
 In this modern age where internet addiction has become rampant, it is productify that comes to your rescue. 
@@ -12,7 +12,10 @@ Words searched for- by the user are stored into a personalised dictionary which 
 Simultaneously, Productify displays usage statistics (time spent on websites, number of articles saved,
 number of words searched for meaning,etc) of the user that will provide a measure of his productiveness.
 
-<b>Technologies Used</b><br>
+### Explanatory Video
+[![PRoductify explanatory video](https://drive.google.com/open?id=1e6elcOYvJYeOjx5yxKbbuzqf1nGbHen0)](https://youtu.be/FDNbGub3Rac)
+
+## Technologies Used
 Productify uses a number of open source projects to work properly:
 <ul>
   <li><b>React-Native</b> - framework to build the Mobile Application</li>
@@ -24,16 +27,16 @@ Productify uses a number of open source projects to work properly:
 And of course Productify itself is open source with a public repository on GitHub.<br><br>
 </ul>
 
-<b>Running Productify:</b><br>
+### Running Productify:
 Using Productify is easy
 Download the Productify extension from the [Chrome Web Store].
 Select and right click text for meaning, pronunciation and translation.
 Right click the extension icon on the browser toolbar and head to the options page for the blocking and un-blocking functionality.
 Also find the articles and words you stored in the options page.<br>
 
-<b>Application and Scope:</b><br>
+### Application and Scope:
 Productify is great for general users but not limited to them! Productify can be used in offices and institutions to measure the productivity of employees and more. This can be acheived my modifying the criteria for measuring productivity. Feedback can be taken from users when they first install the extension, taking into consideration their areas of interest and setting up tags for the same. Morever, users will be asked to review their browsing history everyday and tick out sites that they actually found useful. Overtime, we would have a good idea as to what the user finds to be productive and provide suggestions based on the same .
 
-<b>License:</b>
+### License:
 MIT
 
