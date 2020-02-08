@@ -13,7 +13,7 @@ Simultaneously, Productify displays usage statistics (time spent on websites, nu
 the number of words searched for meaning, etc) of the user that will provide a measure of his productiveness.
 
 ### Explanatory Video
-[![Productify explanatory video](https://drive.google.com/open?id=1e6elcOYvJYeOjx5yxKbbuzqf1nGbHen0)](https://youtu.be/FDNbGub3Rac)
+[![Productify explanatory video](https://files.gitter.im/muskankhedia/Dy3J/Screenshot-from-2019-12-01-14-03-35.png)](https://youtu.be/FDNbGub3Rac)
 
 ## Technologies Used
 Productify uses a number of open source projects to work properly:
