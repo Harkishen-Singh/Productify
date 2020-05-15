@@ -18,10 +18,10 @@ the number of words searched for meaning, etc) of the user that will provide a m
 ## Technologies Used
 Productify uses a number of open source projects to work properly:
 <ul>
- <li><b>React-Native</b> - framework to build the Mobile Application</li>
+ <li><b>React-Native</b> - framework to build the Mobile Applications</li>
  <li><b>Node.js</b> - event driven I/O for the backend</li>
  <li><b>Express</b> - fast node.js network app framework</li>
- <li><b>MongoDB</b> - Robust no-sql Database</li>
+ <li><b>MongoDB</b> - Robust No-Sql Database</li>
  <li><b>Twitter Bootstrap</b> - great UI boilerplate for modern web apps</li>
  <li><b>jQuery</b> - Javascript library to make web-application interactive </li><br>
 And of course Productify itself is open source with a public repository on GitHub.<br><br>
